@@ -28,16 +28,28 @@
             position: fixed;
             height: 100%;
             top: 0;
+            overflow-y: auto;
         }
         .sidebar h1 {
             font-size: 28px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             text-align: center;
         }
         .sidebar p {
             text-align: center;
             font-size: 16px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+        }
+        .sidebar .profile-image {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .sidebar .profile-image img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #e74c3c;
         }
         .sidebar .nav-links {
             list-style: none;
@@ -107,26 +119,25 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
+        <div class="profile-image">
+            <img src="IMG_20220524_101850.jpg" alt="Profile Picture">
+        </div>
         <u><h1>AD</h1></u>
-        <p>Aspiring Physicist | Space Scientist </p>
+        <p>Aspiring Physicist | Space Scientist</p>
         <ul class="nav-links">
             <li><a href="#contact">Contact</a></li>
             <li><a href="#education">Education</a></li>
-           
             <li><a href="#skills">Skills</a></li>
         </ul>
     </div>
 
     <!-- Main Content -->
     <div class="content">
-        
         <!-- Contact Section -->
         <section id="contact">
             <h2>Contact Information</h2>
             <ul>
                 <li><span>Email:</span> physicsbyavikam@gmail.com</li>
-                
-               
             </ul>
         </section>
 
@@ -135,22 +146,13 @@
             <h2>Education</h2>
             <ul>
                 <li>
-                    <span>•Class 11 Science Stream (Physics, Mathematics, Chemistry)
-
-[Roorkee, India]. <br>
-
-• Excelling in core science and mathematics subjects.<br> 
-
-• Actively engaging in physics-related discussions and exploring advanced topics beyond the curriculum.<br>
-
-               
+                    <span>• Class 11 Science Stream (Physics, Mathematics, Chemistry)</span><br>
+                    [Roorkee, India]<br>
+                    • Excelling in core science and mathematics subjects.<br>
+                    • Actively engaging in physics-related discussions and exploring advanced topics beyond the curriculum.<br>
                 </li>
-               
             </ul>
         </section>
-
-          </section>
-
         <!-- Skills Section -->
         <section id="skills">
             <h2>Skills</h2>
@@ -204,5 +206,6 @@ Studied beginner-level quantum mechanics through books like The Feynman Lectures
         <p>&copy; 2025 AVIKAM | <a href="mailto:your.email@example.com">physicsbyavikam@gmail.com</a></p>
     </footer>
 
+       
 </body>
 </html>
