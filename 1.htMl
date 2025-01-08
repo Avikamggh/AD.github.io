@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Avikam">
+    <title>AD</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f1f1f1;
+            color: #333;
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+        }
+        /* Sidebar styles */
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 30px;
+            position: fixed;
+            height: 100%;
+            top: 0;
+            overflow-y: auto;
+        }
+        .sidebar h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .sidebar p {
+            text-align: center;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .sidebar .profile-image {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .sidebar .profile-image img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #e74c3c;
+        }
+        .sidebar .nav-links {
+            list-style: none;
+            padding-left: 0;
+        }
+        .sidebar .nav-links li {
+            margin: 15px 0;
+        }
+        .sidebar .nav-links li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .sidebar .nav-links li a:hover {
+            color: #e74c3c;
+        }
+
+        /* Content Section */
+        .content {
+            margin-left: 250px;
+            padding: 30px;
+            width: 100%;
+        }
+        .content h2 {
+            margin-top: 30px;
+            color: #34495e;
+        }
+        .content section {
+            margin-bottom: 40px;
+        }
+        .content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .content ul li {
+            margin-bottom: 15px;
+        }
+        .content ul li span {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .content .contact-info a {
+            color: #e74c3c;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+        }
+        footer a {
+            color: #ecf0f1;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="profile-image">
+            <img src="IMG_20220524_101850.jpg" alt="Profile Picture">
+        </div>
+        <u><h1>AD</h1></u>
+        <p>Aspiring Physicist | Space Scientist</p>
+        <ul class="nav-links">
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#skills">Skills</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Contact Information</h2>
+            <ul>
+                <li><span>Email:</span> physicsbyavikam@gmail.com</li>
+            </ul>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education">
+            <h2>Education</h2>
+            <ul>
+                <li>
+                    <span>• Class 11 Science Stream (Physics, Mathematics, Chemistry)</span><br>
+                    [Roorkee, India]<br>
+                    • Excelling in core science and mathematics subjects.<br>
+                    • Actively engaging in physics-related discussions and exploring advanced topics beyond the curriculum.<br>
+                </li>
+            </ul>
+        </section>
+        <!-- Skills Section -->
+        <section id="skills">
+            <h2>Skills</h2>
+            <ul>
+               <li>• Physics Concepts: Strong understanding of foundational physics topics such as mechanics, thermodynamics, and electromagnetism.<br>
+
+• Quantum Mechanics: Basic knowledge of wave-particle duality, superposition, and quantum entanglement.<br>
+
+• Mathematics: Proficient in algebra, calculus, and probability theory.<br>
+
+• Analytical Thinking: Skilled at problem-solving and theoretical exploration.<br>
+
+• Communication: Effective at articulating complex scientific concepts in a clear manner.<br>
+
+<br>
+
+<u>Projects and Interests<br></u>
+
+• Exploration of Time Travel and Wormholes:
+
+Investigated theoretical concepts such as time dilation, closed timelike curves, and the potential of wormholes for space-time navigation.<br>
+
+• Understanding White Holes:
+
+Researched the theoretical existence and implications of white holes as the opposite of black holes, inspired by Einstein’s field equations.<br>
+
+• Quantum Mechanics:
+
+Studied beginner-level quantum mechanics through books like The Feynman Lectures on Physics and explored popular science materials.<br>
+
+
+<br>
+<u>Extracurricular Activities<br></u>
+
+• Participated in physics discussions and debates, exploring speculative topics like time travel and multiverse theories.<br>
+
+• Regularly read scientific literature and watched educational videos on physics to expand knowledge.<br>
+
+• Interested in attending and contributing to science fairs, Olympiads, and research projects in the future.<br>
+
+<br>
+<u>Future Goals<br></u>
+• Conduct groundbreaking research in quantum mechanics, relativity, and cosmology.<br>
+</li><br>
+            </ul>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 AVIKAM | <a href="mailto:your.email@example.com">physicsbyavikam@gmail.com</a></p>
+    </footer>
+
+       
+</body>
+</html>
