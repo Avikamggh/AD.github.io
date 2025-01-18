@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <script src="//code.tidio.co/xwwu8jkj5f0q4xkceohdag60fo681dos.js" async></script>
+    
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AD - Physics Explorer</title>
@@ -233,6 +233,68 @@
             transform: scale(1.05);
         }
 
+.chatbot {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1002;
+            font-size: 2rem;
+        }
+
+        .chatbot-popup {
+            position: fixed;
+            bottom: 10%;
+            right: 2%;
+            width: 300px;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+            display: none;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        .chatbot-popup header {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .chatbot-popup textarea {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 5px;
+            width: 100%;
+            resize: none;
+        }
+
+        .chatbot-popup button {
+            background: linear-gradient(90deg, #ff3366, #00ffff);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        .chatbot-popup button:hover {
+            transform: scale(1.05);
+        }
+
+
+
+
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 3rem;
@@ -282,8 +344,25 @@
             .section {
                 padding: 4rem 1rem;
             }
-        }
-    </style>
+       }
+   
+   
+
+
+
+
+
+
+
+
+
+
+ </style>
+ 
+
+
+
+
 </head>
 <body>
     <div class="noise"></div>
@@ -464,6 +543,55 @@
             });
         });
     </script>
+
+ <div class="chatbot" id="chatbot">
+        ✉️
+    </div>
+
+    <div class="chatbot-popup" id="chatbot-popup">
+        <header>Physics Chatbot</header>
+        <textarea id="chat-message" rows="4" placeholder="Ask about Physics..."></textarea>
+        <button id="send-message">Send</button>
+    </div>
+
+    <script>
+        const chatbotButton = document.getElementById('chatbot');
+        const chatbotPopup = document.getElementById('chatbot-popup');
+
+        chatbotButton.addEventListener('click', () => {
+            chatbotPopup.style.display = chatbotPopup.style.display === 'none' ? 'flex' : 'none';
+        });
+
+        document.getElementById('send-message').addEventListener('click', () => {
+            const message = document.getElementById('chat-message').value;
+            if (message.trim()) {
+                // Enhanced physics-related responses
+                const responses = {
+                    'gravity': 'Gravity is a force that attracts objects towards the center of the Earth.',
+                    'speed of light': 'The speed of light in a vacuum is approximately 299,792,458 meters per second.',
+                    'quantum mechanics': 'Quantum mechanics is a fundamental theory in physics that describes nature at very small scales, such as atoms and subatomic particles.',
+                    'black hole': 'A black hole is a region of spacetime where gravity is so strong that nothing, not even light, can escape its pull.',
+                    'thermodynamics': 'Thermodynamics is the branch of physics that deals with the relationships between heat, work, and energy.',
+                    'nuclear physics': 'Nuclear physics is the study of atomic nuclei and their interactions, including processes like fusion and fission.',
+                    'relativity': 'Einstein’s theory of relativity, encompassing both special and general relativity, fundamentally changed our understanding of space and time.',
+                    'photon': 'A photon is a quantum of light or other electromagnetic radiation, which behaves both as a particle and a wave.',
+                    'entropy': 'Entropy is a measure of the disorder or randomness in a system, which increases over time according to the second law of thermodynamics.',
+                    'wave-particle duality': 'Wave-particle duality is the concept in quantum mechanics that every particle or quantum entity exhibits both wave and particle properties.',
+                    'what is physics':'Physics is the scientific study of matter, its fundamental constituents, its motion and behavior through space and time, and the related entities of energy and force. Physics is one of the most fundamental scientific disciplines.'
+
+
+};
+
+                const response = responses[message.toLowerCase()] || 'I am not sure about that. Can you ask something else?';
+                alert(response);
+                document.getElementById('chat-message').value = '';
+                chatbotPopup.style.display = 'none';
+            }
+        });
+    </script>
+
+
+
 </body>
 </html>
 
