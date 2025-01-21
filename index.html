@@ -834,7 +834,6 @@
                     document.getElementById('chat-message').value = '';
                     const response = await fetch('https://api.openai.com/v1/chat/completions', options);
                     const data = await response.json();
-                    console.log(data);
                     const answer = data.choices[0].message.content;
                     addMessage(answer, false);
                 } catch (err) {
