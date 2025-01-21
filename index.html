@@ -810,7 +810,7 @@
                 const options = {
                     method: 'POST',
                     headers: {
-                        'Authorization': 'Bearer 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',
+                        'Authorization': 'Bearer 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',
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
@@ -834,6 +834,7 @@
                     document.getElementById('chat-message').value = '';
                     const response = await fetch('https://api.openai.com/v1/chat/completions', options);
                     const data = await response.json();
+                    console.log(data);
                     const answer = data.choices[0].message.content;
                     addMessage(answer, false);
                 } catch (err) {
