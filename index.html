@@ -67,9 +67,31 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(45deg, #000000, #1a1a1a);
             position: relative;
             overflow: hidden;
+        }
+
+        /* Video background styling */
+        .video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 1.5; /* Adjust opacity as needed */
+        }
+
+        /* Overlay for better text visibility */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0,0,0,0.7), rgba(26,26,26,0.7));
+            z-index: 0;
         }
 
         .hero::before {
@@ -83,6 +105,7 @@
                     transparent 1px,
                     transparent 10px);
             animation: slide 20s linear infinite;
+            z-index: 1;
         }
 
         .hero-content {
@@ -127,7 +150,7 @@
             left: 0;
             width: 100%;
             padding: 1.5rem;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(10px);
             z-index: 1000;
             display: flex;
@@ -404,6 +427,66 @@
                 padding: 4rem 1rem;
             }
         }
+
+
+.social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .social-icon {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #fff;
+        padding: 1.5rem;
+        border-radius: 15px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .social-icon:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .social-icon.youtube:hover {
+        border-color: #FF0000;
+        background: rgba(255, 0, 0, 0.1);
+    }
+
+    .social-icon.whatsapp:hover {
+        border-color: #25D366;
+        background: rgba(37, 211, 102, 0.1);
+    }
+
+    .social-logo {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 1rem;
+        object-fit: contain;
+    }
+
+    .social-icon span {
+        font-weight: bold;
+    }
+
+    /* For mobile responsiveness */
+    @media (max-width: 768px) {
+        .social-icons {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .social-icon {
+            width: 80%;
+        }
+    }
+
     </style>
 
 
@@ -424,9 +507,22 @@
         <a href="#goals">Goals</a>
         <a href="#achievements">Achievements</a>
         <a href="#contact">Contact</a>
+        <a href="#social">Connect With Me</a>
+        
     </nav>
 
     <div class="hero">
+        <!-- Video background -->
+        <video class="video-bg" autoplay loop muted playsinline>
+            <!-- Replace with your actual video file path -->
+            <source src="227152_medium.mp4" type="video/mp4">
+            <!-- Add additional source formats for better browser compatibility -->
+            <!-- <source src="your-video-file.webm" type="video/webm"> -->
+        </video>
+        
+        <!-- Overlay for better text visibility -->
+        <div class="hero-overlay"></div>
+        
         <div class="hero-content">
             <h1 class="hero-title">AD</h1>
             <p class="hero-subtitle">Exploring the Quantum Realm</p>
@@ -503,15 +599,6 @@
         </div>
     </section>
 
-
-
-
-
-
-
-
-
-
     <section id="blog" class="section">
         <h2 class="section-title">Blog</h2>
         <div class="grid">
@@ -529,7 +616,7 @@
                 <a href="https://physicsbyavikam.substack.com/p/the-general-theory-of-relativity?r=54qmr7"
                     class="blog-link" target="_blank">Read More →</a>
             </div>
-            <div class="blog-card">
+          <div class="blog-card">
                 <h3 class="blog-title">Subscribe to My Newsletter</h3>
                 <p class="blog-excerpt">Get the latest insights on physics, quantum mechanics, and the universe
                     delivered to your inbox.</p>
@@ -539,9 +626,6 @@
             </div>
         </div>
     </section>
-
-
-
 
     <section id="goals" class="section">
         <h2 class="section-title">Goals</h2>
@@ -587,19 +671,37 @@
                 <img src="isro.jpeg" alt="ISRO" class="certificate-image">
                 <h3 class="certificate-title">ISRO Workshop</h3>
                 <p>Thrilled to be chosen for a prestigious 15-day space science training program at the (ISRO).</p>
-                <p class="certificate-date">published: January 20, 2025</p>
+                <p class="certificate-date">Published: January 20, 2025</p>
                 <div class="skill-bar">
                     <div class="skill-progress" style="width: 100%"></div>
                 </div>
-
-
             </div>
+
+            <div class="certificate-card">
+                <img src="ai certificate.jpg" alt="freedom with ai" class="certificate-image">
+                <h3 class="certificate-title">Artificial Intelligence Workshop</h3>
+                <p>Unlocking human potential through responsible AI innovation.</p>
+                <p class="certificate-date">Published: March 6, 2025</p>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 100%"></div>
+                </div>
+            </div>         
+            
+            <div class="certificate-card">
+                <img src="cybersecurity .jpg" alt="cybersecurity" class="certificate-image">
+                <h3 class="certificate-title">Introduction To Cybersecurity</h3>
+                <p>Cybersecurity is the practice of protecting systems, networks, and programs from digital attacks, unauthorized access, and data theft.</p>
+                <p class="certificate-date">Published: March 6, 2025</p>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 100%"></div>
+                </div>
+            </div>     
+
+
+
+
+        </div>
     </section>
-
-
-
-
-
 
     <section id="contact" class="section">
         <h2 class="section-title">Contact</h2>
@@ -613,7 +715,48 @@
         </div>
     </section>
 
+
+<section id="social" class="section">
+    <h2 class="section-title">Connect With Me</h2>
+    <div class="social-icons">
+        <a href="http://www.youtube.com/@physicsbyavikam602" target="_blank" class="social-icon youtube">
+            <img src="youtube-logo.jpeg" alt="YouTube" class="social-logo">
+            <span>YouTube Channel</span>
+        </a>
+        <a href="https://chat.whatsapp.com/GFLgsYvEaRoIp076gqWx5N" target="_blank" class="social-icon whatsapp">
+            <img src="whatsapp-logo.png" alt="WhatsApp" class="social-logo">
+            <span>WhatsApp Community</span>
+        </a>
+    </div>
+</section>
+
     <script>
+        // Check if video is supported and handle fallback
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.querySelector('.video-bg');
+            
+            // Check if browser supports video
+            const isVideoSupported = !!document.createElement('video').canPlayType;
+            
+            if (!isVideoSupported || video.canPlayType('video/mp4') === '') {
+                // Fallback to original gradient background if video isn't supported
+                document.querySelector('.hero').style.background = 'linear-gradient(45deg, #000000, #1a1a1a)';
+                video.style.display = 'none';
+            }
+            
+            // Try to play the video automatically
+            const playPromise = video.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    // Auto-play was prevented
+                    console.log("Video autoplay was prevented. This is common on mobile devices.");
+                    // Fallback to static background
+                    document.querySelector('.hero').style.background = 'linear-gradient(45deg, #000000, #1a1a1a)';
+                });
+            }
+        });
+
         // Intersection Observer for fade-in animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -836,7 +979,7 @@
                 };
 
                 try {
-                    document.getElementById('chat-message').value = '';
+                      document.getElementById('chat-message').value = '';
                     const response = await fetch('https://api.openai.com/v1/chat/completions', options);
                     const data = await response.json();
                     const answer = data.choices[0].message.content;
