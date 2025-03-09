@@ -183,7 +183,19 @@
 
 
 
-        /* Updated hero subtitle style */
+ @keyframes subtitleLoop {
+    0%, 100% {
+        opacity: 0;
+        letter-spacing: -5px;
+        transform: translateY(20px);
+    }
+    10%, 90% {
+        opacity: 1;
+        letter-spacing: 1px;
+        transform: translateY(0px);
+    }
+}
+
 .hero-subtitle {
     font-size: 1.5rem;
     color: #fff;
@@ -191,11 +203,9 @@
     position: relative;
     display: inline-block;
     padding: 0.5rem 1rem;
-    opacity: 0;
-    animation: letterSpacing 2s ease forwards, 
+    animation: subtitleLoop 8s ease-in-out infinite, 
                float 6s ease-in-out infinite;
 }
-
 /* Adding individual letter animations to subtitle */
 .hero-subtitle span {
     display: inline-block;
