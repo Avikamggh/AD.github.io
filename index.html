@@ -123,12 +123,85 @@
             margin-bottom: 1rem;
         }
 
-        .hero-subtitle {
-            font-size: 1.5rem;
-            color: #888;
-            margin-bottom: 2rem;
-        }
 
+         /* Text reveal animation for subtitle */
+@keyframes revealText {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Letter spacing animation */
+@keyframes letterSpacing {
+    0% {
+        letter-spacing: -5px;
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        letter-spacing: 1px;
+        opacity: 1;
+    }
+}
+
+/* Floating animation for subtitle */
+@keyframes float {
+    0% {
+        transform: translateY(0px) translateX(0px);
+    }
+    25% {
+        transform: translateY(-8px) translateX(5px);
+    }
+    50% {
+        transform: translateY(0px) translateX(10px);
+    }
+    75% {
+        transform: translateY(8px) translateX(5px);
+    }
+    100% {
+        transform: translateY(0px) translateX(0px);
+    }
+}
+
+/* Individual letter animations */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+        /* Updated hero subtitle style */
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    opacity: 0;
+    animation: letterSpacing 2s ease forwards, 
+               float 6s ease-in-out infinite;
+}
+
+/* Adding individual letter animations to subtitle */
+.hero-subtitle span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s forwards;
+}
+
+        
         .nav-toggle {
             display: none;
             position: fixed;
@@ -525,7 +598,7 @@
         
         <div class="hero-content">
             <h1 class="hero-title">Space And Tech</h1>
-            <p class="hero-subtitle">Exploring the Quantum Realm</p>
+            <p class="hero-subtitle" id="hero-subtitle">Exploring the Quantum Realm</p>
         </div>
     </div>
 
@@ -998,7 +1071,32 @@
                 document.getElementById('send-message').click();
             }
         });
+
     </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the subtitle element
+        const subtitleElement = document.getElementById('hero-subtitle');
+        const subtitleText = subtitleElement.textContent;
+        
+        // Clear the current content
+        subtitleElement.textContent = '';
+        
+        // Add each letter wrapped in a span with staggered animation delay
+        for (let i = 0; i < subtitleText.length; i++) {
+            const span = document.createElement('span');
+            span.textContent = subtitleText[i] === ' ' ? '\u00A0' : subtitleText[i];
+            span.style.animationDelay = `${1.0 + i * 0.08}s`; // Start after title animation with staggered delays
+            subtitleElement.appendChild(span);
+        }
+    });
+</script>
+
+
+
+
+
+
 </body>
 
 </html>
