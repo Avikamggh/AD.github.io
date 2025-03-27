@@ -11,20 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AD - Physics Explorer</title>
-  
- <!-- Google tag (gtag.js) -->
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JRZXGKPDQL"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-JRZXGKPDQL');
-</script>
- 
- 
- <!-- Lightbox CSS and JS -->
+  <!-- Lightbox CSS and JS -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js" defer></script> 
  <style>
@@ -586,7 +573,116 @@
         }
     }
 
-    </style>
+.quiz-intro {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.quiz-selector {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.quiz-dropdown {
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    background: rgba(26, 26, 26, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-family: inherit;
+    cursor: pointer;
+    min-width: 250px;
+}
+
+.quiz-btn {
+    background: linear-gradient(90deg, #ff3366, #00ffff);
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.quiz-btn:hover {
+    transform: scale(1.05);
+}
+
+.quiz-container {
+    width: 100%;
+    min-height: 500px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.quiz-container iframe {
+    width: 100%;
+    height: 700px;
+    border: none;
+}
+
+.quiz-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2rem;
+}
+
+/* Quiz loading animation */
+.quiz-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+}
+
+.quiz-loading::after {
+    content: '';
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top-color: #ff3366;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .quiz-selector {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .quiz-dropdown {
+        width: 90%;
+    }
+    
+    .quiz-btn {
+        width: 90%;
+    }
+    
+    .quiz-container iframe {
+        height: 600px;
+    }
+}    
+
+
+
+
+</style>
 
 
 
@@ -599,6 +695,7 @@
 
     <button class="nav-toggle">☰</button>
     <nav>
+        
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
@@ -607,7 +704,7 @@
         <a href="#achievements">Achievements</a>
         <a href="#contact">Contact</a>
         <a href="#social">Connect With Me</a>
-        
+        <a href="#quizzes">Physics Quizzes</a>
     </nav>
 
     <div class="hero">
@@ -642,7 +739,7 @@
             </div>
 
             <div class="card">
-                <p>• Class 12 Science Stream (Physics, Mathematics, Chemistry)</span><br></p>
+                <p>• Class 11 Science Stream (Physics, Mathematics, Chemistry)</span><br></p>
             </div>
 
             <div class="card">
@@ -836,6 +933,37 @@
             <img src="whatsapp-logo.png" alt="WhatsApp" class="social-logo">
             <span>WhatsApp Community</span>
         </a>
+    </div>
+</section>
+
+
+<section id="quizzes" class="section">
+    <h2 class="section-title">Physics Quizzes</h2>
+    
+    <div class="quiz-intro">
+        <p>Test your physics knowledge with these interactive quizzes. Select a topic below and challenge yourself! if you have all correct you will win and will be able to meet me.</p>
+    </div>
+    
+    <div class="quiz-selector">
+        <select id="quiz-dropdown" class="quiz-dropdown">
+            <option value="">Select a Physics Quiz</option>
+            <option value="quantum">Quantum Mechanics Basics</option>
+            <option value="relativity">Theory of Relativity</option>
+            <option value="mechanics">Classical Mechanics</option>
+            <option value="thermodynamics">Thermodynamics</option>
+            <option value="waves">Waves & Oscillations</option>
+            <option value="electromagnetism">Electromagnetism</option>
+            <option value="modern">Modern Physics</option>
+            <option value="astrophysics">Astrophysics</option>
+        </select>
+        <button id="load-quiz-btn" class="quiz-btn">Load Quiz</button>
+    </div>
+    
+    <div id="quiz-container" class="quiz-container">
+        <!-- Quiz iframe will be loaded here -->
+        <div class="quiz-placeholder">
+            <p>Select a quiz topic from the dropdown above to begin!</p>
+        </div>
     </div>
 </section>
 
@@ -1129,7 +1257,61 @@
 </script>
 
 
-
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const quizDropdown = document.getElementById('quiz-dropdown');
+        const loadQuizBtn = document.getElementById('load-quiz-btn');
+        const quizContainer = document.getElementById('quiz-container');
+        
+        // Google Form URLs - Replace these with your actual Google Form quiz URLs
+        const quizForms = {
+            quantum: "https://forms.gle/NUUL8GZ8bhfGZbeS8",
+            relativity: "https://docs.google.com/forms/d/e/1FAIpQLSdYourActualFormID/viewform?embedded=true",
+            mechanics: "https://docs.google.com/forms/d/e/1FAIpQLSdYourActualFormID/viewform?embedded=true",
+            thermodynamics: "https://docs.google.com/forms/d/e/1FAIpQLSdYourActualFormID/viewform?embedded=true",
+            waves: "https://docs.google.com/forms/d/e/1FAIpQLSdYourActualFormID/viewform?embedded=true",
+            electromagnetism: "https://docs.google.com/forms/d/e/1FAIpQLSdYourActualFormID/viewform?embedded=true",
+            modern: "https://docs.google.com/forms/d/e/1FAIpQLSdYourActualFormID/viewform?embedded=true",
+            astrophysics: "https://docs.google.com/forms/d/e/1FAIpQLSdYourActualFormID/viewform?embedded=true"
+        };
+        
+        loadQuizBtn.addEventListener('click', function() {
+            const selectedQuiz = quizDropdown.value;
+            
+            if (!selectedQuiz) {
+                alert('Please select a quiz topic first!');
+                return;
+            }
+            
+            // Show loading state
+            quizContainer.innerHTML = '<div class="quiz-loading"></div>';
+            
+            // Check if we have a form URL for this topic
+            if (quizForms[selectedQuiz]) {
+                // Create and load iframe with selected quiz
+                const iframe = document.createElement('iframe');
+                iframe.src = quizForms[selectedQuiz];
+                iframe.onload = function() {
+                    // Remove loading state when iframe loads
+                    quizContainer.querySelector('.quiz-loading')?.remove();
+                };
+                
+                // Clear container and add iframe
+                quizContainer.innerHTML = '';
+                quizContainer.appendChild(iframe);
+                
+                // Scroll to the quiz container
+                quizContainer.scrollIntoView({behavior: 'smooth'});
+            } else {
+                quizContainer.innerHTML = `
+                    <div class="quiz-placeholder">
+                        <p>Sorry, the selected quiz is not available at the moment. Please try another topic.</p>
+                    </div>
+                `;
+            }
+        });
+    });
+</script>
 
 
 
