@@ -583,17 +583,47 @@
         font-weight: bold;
     }
 
-    /* For mobile responsiveness */
-    @media (max-width: 768px) {
-        .social-icons {
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .social-icon {
-            width: 80%;
-        }
+   /* Update the mobile navigation styles */
+@media (max-width: 768px) {
+    nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        flex-direction: column;
+        align-items: center;
+        /* Change justify-content from center to flex-start to allow scrolling */
+        justify-content: flex-start;
+        background: rgba(0, 0, 0, 0.95);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        /* Add overflow properties for scrolling */
+        overflow-y: auto; 
+        overflow-x: hidden;
+        /* Add padding to give some space at the top and bottom */
+        padding-top: 4rem;
+        padding-bottom: 4rem;
     }
+
+    /* Optional: Add custom scrollbar styling for the mobile menu */
+    nav::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    nav::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    nav::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 3px;
+    }
+
+    nav::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.5);
+    }
+}
 
 .quiz-intro {
     text-align: center;
@@ -887,7 +917,7 @@
         <a href="#contact">Contact</a>
         <a href="#social">Connect With Me</a>
         <a href="#quizzes">Physics Quizzes</a>
-        
+        <a href="#logout"><button onclick="firebase.auth().signOut().then(() => window.location='login.html')">Logout</button></a>
    </nav>
 
 
@@ -1590,7 +1620,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-<button onclick="firebase.auth().signOut().then(() => window.location='login.html')">Logout</button>
 </body>
 
 </html>
