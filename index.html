@@ -887,7 +887,7 @@
         <a href="#contact">Contact</a>
         <a href="#social">Connect With Me</a>
         <a href="#quizzes">Physics Quizzes</a>
-        <a href="#logout"><button onclick="firebase.auth().signOut().then(() => window.location='login.html')">Logout</button></a>
+        
    </nav>
 
 
@@ -1590,6 +1590,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<button onclick="firebase.auth().signOut().then(() => window.location='login.html')">Logout</button>
 </body>
 
 </html>
