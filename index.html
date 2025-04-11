@@ -21,54 +21,13 @@
   };
 
   firebase.initializeApp(firebaseConfig);
-
-  function startFreeTimer(remainingMs) {
-    const timerBox = document.getElementById('free-timer');
-    const timerText = document.getElementById('timer-text');
-    timerBox.style.display = 'block';
-
-    const interval = setInterval(() => {
-      remainingMs -= 1000;
-      const minutes = Math.floor(remainingMs / 60000);
-      const seconds = Math.floor((remainingMs % 60000) / 1000);
-      timerText.textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
-
-      if (remainingMs <= 0) {
-        clearInterval(interval);
-        alert("⏳ Your free access time is over. Please log in to continue.");
-        window.location.href = "login.html";
-      }
-    }, 1000);
-  }
-
   firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-      console.log("✅ Logged in.");
-    } else {
-      const visitedOnce = localStorage.getItem("visitedOnce");
-      const visitStart = localStorage.getItem("visitStartTime");
-
-      if (!visitedOnce || !visitStart) {
-        const now = Date.now();
-        localStorage.setItem("visitedOnce", "true");
-        localStorage.setItem("visitStartTime", now);
-        startFreeTimer(5 * 60 * 1000); // 5 minutes
-      } else {
-        const now = Date.now();
-        const elapsed = now - parseInt(visitStart);
-        const remaining = 5 * 60 * 1000 - elapsed;
-
-        if (remaining <= 0) {
-          alert("⏳ Your free access time is over. Please log in to continue.");
-          window.location.href = "login.html";
-        } else {
-          startFreeTimer(remaining);
-        }
-      }
+    if (!user) {
+      window.location.href = "login.html";
     }
   });
 </script>
-
+    
 
 
  
@@ -931,26 +890,7 @@
 </head>
 
 <body>
-
-<div id="free-timer" style="
-  position: fixed;
-  bottom: 1rem;
-  left: 1rem;
-  background: rgba(0, 0, 0, 0.6);
-  padding: 10px 15px;
-  border-radius: 8px;
-  color: #00ffff;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1rem;
-  z-index: 9999;
-  display: none;
-">
-  ⏳ Free Time Left: <span id="timer-text">5:00</span>
-</div>
-
-  
-
-<div class="noise"></div>
+    <div class="noise"></div>
 
     <button class="nav-toggle">☰</button>
     <nav>
@@ -1486,7 +1426,7 @@
                         "messages": [
                             {
                                 "role": "system",
-                                "content": "trained to answer only physics-related questions. For anything outside the world of physics, it stays silent like a black hole!"
+                                "content": "You are a helpful physics expert. Provide accurate and concise explanations about physics concepts."
                             },
                             {
                                 "role": "user",
