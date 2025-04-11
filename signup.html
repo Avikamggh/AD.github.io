@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Sign Up - Physics Explorer</title>
+  <title>Join Xploreon</title>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
-  <style>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  
+<style>
     body {
       background: #0a0a0a;
       color: white;
@@ -126,7 +128,21 @@
   </video>
 
   <div class="content">
-    <h2>Sign Up</h2>
+    <h2 style="
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  background: linear-gradient(90deg, #ff3366, #00ffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  margin-bottom: 0.5rem;
+">
+  Create Your Xploreon Account
+</h2>
+<p style="text-align: center; color: #ccc; font-size: 1rem; margin-top: 0;">
+  Unlock the world of physics, space, and discovery.
+</p>
+
     <input type="email" id="email" placeholder="Email" />
     <input type="password" id="password" placeholder="Password" />
     <button onclick="signup()">Create Account</button>
