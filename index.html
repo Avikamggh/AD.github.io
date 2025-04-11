@@ -1673,35 +1673,51 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script>
-  function makeTimerDraggable() {
-    const timer = document.getElementById("free-timer");
-    let offsetX = 0, offsetY = 0;
-    let isDragging = false;
+function makeTimerDraggable() {
+  const el = document.getElementById("free-timer");
+  let isDragging = false, offsetX = 0, offsetY = 0;
 
-    timer.addEventListener("mousedown", function(e) {
-      isDragging = true;
-      offsetX = e.clientX - timer.offsetLeft;
-      offsetY = e.clientY - timer.offsetTop;
-      timer.style.cursor = "grabbing";
-    });
+  const startDrag = (x, y) => {
+    offsetX = x - el.offsetLeft;
+    offsetY = y - el.offsetTop;
+    isDragging = true;
+    el.style.cursor = "grabbing";
+  };
 
-    document.addEventListener("mousemove", function(e) {
-      if (isDragging) {
-        timer.style.left = (e.clientX - offsetX) + "px";
-        timer.style.top = (e.clientY - offsetY) + "px";
-        timer.style.right = "auto"; // disable right so left can work
-      }
-    });
+  const moveDrag = (x, y) => {
+    if (isDragging) {
+      el.style.left = (x - offsetX) + "px";
+      el.style.top = (y - offsetY) + "px";
+      el.style.right = "auto";
+    }
+  };
 
-    document.addEventListener("mouseup", function() {
-      isDragging = false;
-      timer.style.cursor = "grab";
-    });
-  }
+  const stopDrag = () => {
+    isDragging = false;
+    el.style.cursor = "grab";
+  };
 
-  document.addEventListener("DOMContentLoaded", makeTimerDraggable);
+  // Mouse events
+  el.addEventListener("mousedown", e => startDrag(e.clientX, e.clientY));
+  document.addEventListener("mousemove", e => moveDrag(e.clientX, e.clientY));
+  document.addEventListener("mouseup", stopDrag);
+
+  // Touch events
+  el.addEventListener("touchstart", e => {
+    const touch = e.touches[0];
+    startDrag(touch.clientX, touch.clientY);
+  });
+  document.addEventListener("touchmove", e => {
+    if (isDragging) {
+      const touch = e.touches[0];
+      moveDrag(touch.clientX, touch.clientY);
+    }
+  });
+  document.addEventListener("touchend", stopDrag);
+}
+
+document.addEventListener("DOMContentLoaded", makeTimerDraggable);
 </script>
-
 
 </body>
 
