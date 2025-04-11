@@ -933,9 +933,9 @@
 <body>
 
 <div id="free-timer" style="
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
   background: rgba(0, 0, 0, 0.6);
   padding: 10px 15px;
   border-radius: 8px;
@@ -943,13 +943,10 @@
   font-family: 'Space Grotesk', sans-serif;
   font-size: 1rem;
   z-index: 9999;
-  cursor: grab;
-  user-select: none;
   display: none;
 ">
   ⏳ Free Time Left: <span id="timer-text">5:00</span>
 </div>
-
 
   
 
@@ -1672,52 +1669,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<script>
-function makeTimerDraggable() {
-  const el = document.getElementById("free-timer");
-  let isDragging = false, offsetX = 0, offsetY = 0;
-
-  const startDrag = (x, y) => {
-    offsetX = x - el.offsetLeft;
-    offsetY = y - el.offsetTop;
-    isDragging = true;
-    el.style.cursor = "grabbing";
-  };
-
-  const moveDrag = (x, y) => {
-    if (isDragging) {
-      el.style.left = (x - offsetX) + "px";
-      el.style.top = (y - offsetY) + "px";
-      el.style.right = "auto";
-    }
-  };
-
-  const stopDrag = () => {
-    isDragging = false;
-    el.style.cursor = "grab";
-  };
-
-  // Mouse events
-  el.addEventListener("mousedown", e => startDrag(e.clientX, e.clientY));
-  document.addEventListener("mousemove", e => moveDrag(e.clientX, e.clientY));
-  document.addEventListener("mouseup", stopDrag);
-
-  // Touch events
-  el.addEventListener("touchstart", e => {
-    const touch = e.touches[0];
-    startDrag(touch.clientX, touch.clientY);
-  });
-  document.addEventListener("touchmove", e => {
-    if (isDragging) {
-      const touch = e.touches[0];
-      moveDrag(touch.clientX, touch.clientY);
-    }
-  });
-  document.addEventListener("touchend", stopDrag);
-}
-
-document.addEventListener("DOMContentLoaded", makeTimerDraggable);
-</script>
 
 </body>
 
