@@ -8,8 +8,8 @@
 
  
 
-<meta property="og:title" content="Xploreon" />
-    <meta property="og:description" content="Exploring The DeepSpace" />
+<meta property="og:title" content="Physics Explorer" />
+    <meta property="og:description" content="Welcome to my website" />
     <meta property="og:image" content="https://physicsexplorer.netlify.app/y.png" />
     <meta property="og:url" content="https://physicsexplorer.netlify.app/" />
     <meta property="og:type" content="website" />
@@ -1613,6 +1613,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(registration => {
+          console.log('Service Worker registered:', registration);
+        })
+        .catch(error => {
+          console.error('Service Worker registration failed:', error);
+        });
+    });
+  }
 </script>
 
 
