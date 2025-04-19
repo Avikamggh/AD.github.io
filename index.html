@@ -884,6 +884,17 @@
     }
 }
 
+@media (max-width: 768px) {
+    .social-icons {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .social-icon {
+        width: 90%;
+    }
+}
 
 
 
@@ -900,9 +911,10 @@
 <body>
     <div class="noise"></div>
 
-    <button class="nav-toggle">☰</button>
+<button class="nav-toggle">☰</button>
     <nav>
-        
+      
+
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
@@ -1163,6 +1175,21 @@
         <a href="https://chat.whatsapp.com/GFLgsYvEaRoIp076gqWx5N" target="_blank" class="social-icon whatsapp">
             <img src="whatsapp-logo.png" alt="WhatsApp" class="social-logo">
             <span>WhatsApp Community</span>
+        </a>
+
+         <a href="https://www.instagram.com/avikamdeol/?__pwa=1" target="_blank" class="social-icon Instagram">
+            <img src="insta.jpeg" alt="Instagram" class="social-logo">
+            <span>Instagram Account</span>
+        </a>
+   
+     <a href="https://x.com/avikamdeol" target="_blank" class="social-icon Twitter">
+            <img src="twitter.jpg" alt="Twitter" class="social-logo">
+            <span>Twitter Account</span>
+        </a>
+
+         <a href="https://www.linkedin.com/in/avikam-deol-979745349/" target="_blank" class="social-icon LinkedIn">
+            <img src="linkedin.png" alt="LinkedIn" class="social-logo">
+            <span>LinkedIn Account</span>
         </a>
     </div>
 </section>
@@ -1672,6 +1699,36 @@ document.addEventListener('DOMContentLoaded', function() {
   <hr style="margin: 2rem 0; border-color: rgba(255,255,255,0.1);">
   <p style="text-align: center; color: #888;">© 2025 Xploreon. All Rights Reserved.</p>
 </footer>
+<div id="install-popup" style="display: none; position: fixed; bottom: 20px; left: 20px; right: 20px; max-width: 300px; margin: auto; background: rgba(0,0,0,0.85); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1rem; text-align: center; z-index: 9999; color: white; box-shadow: 0 10px 30px rgba(0,0,0,0.4); font-family: 'Space Grotesk', sans-serif;">
+  <p style="margin-bottom: 0.5rem;">Install <strong>Xploreon</strong> for a better experience!</p>
+  <button id="popup-install-btn" style="background: linear-gradient(90deg, #ff3366, #00ffff); color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: bold; cursor: pointer;">Install App</button>
+</div>
+<script>
+  let deferredPrompt;
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+
+    // Show popup
+    const popup = document.getElementById('install-popup');
+    popup.style.display = 'block';
+
+    document.getElementById('popup-install-btn').addEventListener('click', () => {
+      popup.style.display = 'none'; // hide popup
+      deferredPrompt.prompt();
+
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User installed the app');
+        } else {
+          console.log('User dismissed the install prompt');
+        }
+        deferredPrompt = null;
+      });
+    });
+  });
+</script>
 
 
 </body>
