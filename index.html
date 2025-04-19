@@ -1434,8 +1434,8 @@
         const installPopup = document.getElementById('install-popup');
         const chatMessages = document.getElementById('chat-messages');
 
-        chatbotButton.addEventListener('click', () => {
-        chatbotButton.addEventListener('click', () => {
+        
+chatbotButton.addEventListener('click', () => {
   const isVisible = chatbotPopup.style.display === 'flex';
   chatbotPopup.style.display = isVisible ? 'none' : 'flex';
 
@@ -1444,7 +1444,6 @@
     installPopup.style.display = 'none';
   }
 });
-
 
         function addMessage(message, isUser = false) {
             const messageDiv = document.createElement('div');
