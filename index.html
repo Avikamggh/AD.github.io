@@ -1434,16 +1434,21 @@
         const installPopup = document.getElementById('install-popup');
         const chatMessages = document.getElementById('chat-messages');
 
-        
-chatbotButton.addEventListener('click', () => {
-  const isVisible = chatbotPopup.style.display === 'flex';
-  chatbotPopup.style.display = isVisible ? 'none' : 'flex';
+ chatbotButton.addEventListener('click', () => {
+  const isOpen = chatbotPopup.style.display === 'flex';
+  chatbotPopup.style.display = isOpen ? 'none' : 'flex';
 
-  // 🔽 Hide install popup when chatbot opens
-  if (!isVisible && installPopup && installPopup.style.display !== 'none') {
+  // Bring focus to the textarea if opening
+  if (!isOpen) {
+    document.getElementById('chat-message').focus();
+  }
+
+  // Hide install popup if it's open
+  if (!isOpen && installPopup && installPopup.style.display !== 'none') {
     installPopup.style.display = 'none';
   }
 });
+
 
         function addMessage(message, isUser = false) {
             const messageDiv = document.createElement('div');
