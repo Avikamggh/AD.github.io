@@ -1431,11 +1431,20 @@
     <script>
         const chatbotButton = document.getElementById('chatbot');
         const chatbotPopup = document.getElementById('chatbot-popup');
+        const installPopup = document.getElementById('install-popup');
         const chatMessages = document.getElementById('chat-messages');
 
         chatbotButton.addEventListener('click', () => {
-            chatbotPopup.style.display = chatbotPopup.style.display === 'none' ? 'flex' : 'none';
-        });
+        chatbotButton.addEventListener('click', () => {
+  const isVisible = chatbotPopup.style.display === 'flex';
+  chatbotPopup.style.display = isVisible ? 'none' : 'flex';
+
+  // 🔽 Hide install popup when chatbot opens
+  if (!isVisible && installPopup && installPopup.style.display !== 'none') {
+    installPopup.style.display = 'none';
+  }
+});
+
 
         function addMessage(message, isUser = false) {
             const messageDiv = document.createElement('div');
@@ -1699,7 +1708,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <hr style="margin: 2rem 0; border-color: rgba(255,255,255,0.1);">
   <p style="text-align: center; color: #888;">© 2025 Xploreon. All Rights Reserved.</p>
 </footer>
-<div id="install-popup" style="display: none; position: fixed; bottom: 20px; left: 20px; right: 20px; max-width: 300px; margin: auto; background: rgba(0,0,0,0.85); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1rem; text-align: center; z-index: 9999; color: white; box-shadow: 0 10px 30px rgba(0,0,0,0.4); font-family: 'Space Grotesk', sans-serif;">
+<div id="install-popup" style="display: none; position: fixed; bottom: 20px; left: 20px; right: 20px; max-width: 300px; margin: auto; background: rgba(0,0,0,0.85); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1rem; text-align: center; z-index: 800; color: white; box-shadow: 0 10px 30px rgba(0,0,0,0.4); font-family: 'Space Grotesk', sans-serif;">
   <p style="margin-bottom: 0.5rem;">Install <strong>Xploreon</strong> for a better experience!</p>
   <button id="popup-install-btn" style="background: linear-gradient(90deg, #ff3366, #00ffff); color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: bold; cursor: pointer;">Install App</button>
 </div>
