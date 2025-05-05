@@ -1,257 +1,1749 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<!-- Favicon -->
-<link rel="icon" href="x.png" type="image/png">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/x.png">
+<meta name="theme-color" content="#00aaff">
 
-<!-- Open Graph / Social Sharing -->
-<meta property="og:title" content="Xploreon – Igniting Interplanetary Innovation" />
-<meta property="og:description" content="Explore space-tech and AI breakthroughs. Join Xploreon and shape the future of interplanetary life." />
-<meta property="og:image" content="x.png" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://xploreon.netlify.app/" />
+ 
 
-<!-- Twitter Preview -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Xploreon – Igniting Interplanetary Innovation" />
-<meta name="twitter:description" content="Explore space-tech and AI breakthroughs. Join Xploreon and shape the future of interplanetary life." />
-<meta name="twitter:image" content="x.png" />
+<meta property="og:title" content="Xploreon" />
+    <meta property="og:description" content="Welcome to my website" />
+    <meta property="og:image" content="https://res.cloudinary.com/doxp19j4j/image/upload/v1744987008/y_dbwiwj.png" />
+<meta name="twitter:card" content="summary_large_image">
+
+    <meta property="og:url" content="https://physicsexplorer.netlify.app/" />
+    <meta property="og:type" content="website" />
+
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCSzpaHFTls0XvUoqzjd2IZKlIgHT2_X9Y",
+    authDomain: "chggh-f6d7a.firebaseapp.com",
+    projectId: "chggh-f6d7a",
+    storageBucket: "chggh-f6d7a.firebasestorage.app",
+    messagingSenderId: "735316996691",
+    appId: "1:735316996691:web:f5687adb654b5bd1df0ca6"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  firebase.auth().onAuthStateChanged(user => {
+    if (!user) {
+      window.location.href = "login.html";
+    }
+  });
+</script>
+    
 
 
-  
+ 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xploreon - Exploring the DeepSpace</title>
+  <!-- Lightbox CSS and JS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js" defer></script> 
+ <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Xploreon | Home</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Orbitron', sans-serif;
-      margin: 0;
-      background-color: #000;
-      color: white;
+        @keyframes slide {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVfk6JAAAACHRSTlMoACgQMyFA/xgpU5kAAACUSURBVDjLhZAxDoQwDARzgF+kpOMBr7iShp6vsP9/BtmxjVAQYqQUkVaz0q5P7kkCV5OQ7hduoTx5JawK2QQLN2/SSZkUYXIeqDWrYqP2F2b1LJNyqoF7c3FSBr2EOcmHPCnTPoLvKD4XKcuExwxzTUpWxwxTSSn7CLNPSlFHmDVWhj7CmEkZHmH8pOQ44v2k5NRv5AMP1wqr4mrzjwAAAABJRU5ErkJggg==');
+            opacity: 0.03;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Video background styling */
+        .video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 1.5; /* Adjust opacity as needed */
+        }
+
+        /* Overlay for better text visibility */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0,0,0,0.7), rgba(26,26,26,0.7));
+            z-index: 0;
+        }
+
+        
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            padding: 2rem;
+        }
+
+        .hero-title {
+            font-size: 8vw;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ff3366, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+
+         /* Text reveal animation for subtitle */
+@keyframes revealText {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Letter spacing animation */
+@keyframes letterSpacing {
+    0% {
+        letter-spacing: -5px;
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        letter-spacing: 1px;
+        opacity: 1;
+    }
+}
+
+/* Floating animation for subtitle */
+@keyframes float {
+    0% {
+        transform: translateY(0px) translateX(0px);
+    }
+    25% {
+        transform: translateY(-8px) translateX(5px);
+    }
+    50% {
+        transform: translateY(0px) translateX(10px);
+    }
+    75% {
+        transform: translateY(8px) translateX(5px);
+    }
+    100% {
+        transform: translateY(0px) translateX(0px);
+    }
+}
+
+/* Individual letter animations */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+ @keyframes subtitleLoop {
+    0%, 100% {
+        opacity: 0;
+        letter-spacing: -5px;
+        transform: translateY(20px);
+    }
+    10%, 90% {
+        opacity: 1;
+        letter-spacing: 1px;
+        transform: translateY(0px);
+    }
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    animation: subtitleLoop 8s ease-in-out infinite, 
+               float 6s ease-in-out infinite;
+}
+/* Adding individual letter animations to subtitle */
+.hero-subtitle span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s forwards;
+}
+
+        
+        .nav-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1001;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 0.5rem 1rem;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff3366, #00ffff);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ff3366, #00ffff);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 0.5s ease backwards;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: #ff3366;
+        }
+
+        .certificate-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 0.5s ease backwards;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .certificate-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: #ff3366;
+        }
+
+        .certificate-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            object-fit: cover;
+            max-height: 300px;
+        }
+
+        .certificate-card:hover .certificate-image {
+            transform: scale(1.02);
+        }
+
+        .certificate-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            margin-top: 1rem;
+        }
+
+        .certificate-date {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .skill-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #ff3366, #00ffff);
+            border-radius: 3px;
+            transition: width 1.5s ease;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #fff;
+            font-family: inherit;
+        }
+
+        .contact-form button {
+            background: linear-gradient(90deg, #ff3366, #00ffff);
+            color: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            transform: scale(1.05);
+        }
+
+        .chatbot {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1002;
+            font-size: 2rem;
+        }
+
+        .chatbot-popup {
+            position: fixed;
+            bottom: 10%;
+            right: 2%;
+            width: 300px;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+            display: none;
+            flex-direction: column;
+            padding: 0.5rem;
+        }
+
+        .chatbot-popup header {
+            font-size: 1.5rem;
+        }
+
+        .chatbot-popup textarea {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 5px;
+            width: 100%;
+            resize: none;
+        }
+
+        .chatbot-popup button {
+            background: linear-gradient(90deg, #ff3366, #00ffff);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .chatbot-popup button:hover {
+            transform: scale(1.05);
+        }
+
+
+
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                background: rgba(0, 0, 0, 0.95);
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            nav.active {
+                transform: translateX(0);
+            }
+
+            nav a {
+                font-size: 1.2rem;
+                padding: 1rem;
+                width: 100%;
+                text-align: center;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 4rem 1rem;
+            }
+        }
+
+
+.social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 2rem;
     }
 
-    .background-section {
-      background-image: url('xploreon.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      position: relative;
-      overflow: hidden;
+    .social-icon {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #fff;
+        padding: 1.5rem;
+        border-radius: 15px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(180deg, rgba(0,0,0,0.8), rgba(0,0,0,0.9));
-      z-index: 1;
+    .social-icon:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
 
-    .glass {
-      background: rgba(0, 255, 255, 0.07);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(0, 255, 255, 0.2);
+    .social-icon.youtube:hover {
+        border-color: #FF0000;
+        background: rgba(255, 0, 0, 0.1);
     }
 
-    .glow-text {
-      color: #00ffe0;
-      text-shadow: 0 0 15px #00ffe0, 0 0 30px #00ffe0;
+    .social-icon.whatsapp:hover {
+        border-color: #25D366;
+        background: rgba(37, 211, 102, 0.1);
     }
 
-    .fade-text {
-      animation: fadeIn 3s ease-in-out infinite alternate;
+    .social-logo {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 1rem;
+        object-fit: contain;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0.3; transform: scale(0.98); }
-      to { opacity: 1; transform: scale(1); }
+    .social-icon span {
+        font-weight: bold;
     }
 
-    .futuristic-button {
-      background: linear-gradient(90deg, #00f0ff, #0077ff);
-      border: none;
-      color: white;
-      padding: 0.75rem 2rem;
-      border-radius: 9999px;
-      font-weight: bold;
-      box-shadow: 0 0 10px #00f0ff;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+   /* Update the mobile navigation styles */
+@media (max-width: 768px) {
+    nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        flex-direction: column;
+        align-items: center;
+        /* Change justify-content from center to flex-start to allow scrolling */
+        justify-content: flex-start;
+        background: rgba(0, 0, 0, 0.95);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        /* Add overflow properties for scrolling */
+        overflow-y: auto; 
+        overflow-x: hidden;
+        /* Add padding to give some space at the top and bottom */
+        padding-top: 4rem;
+        padding-bottom: 4rem;
     }
 
-    .futuristic-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px #00f0ff, 0 0 30px #0077ff;
+    /* Optional: Add custom scrollbar styling for the mobile menu */
+    nav::-webkit-scrollbar {
+        width: 5px;
     }
 
-    .chatbot-toggle {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-      z-index: 50;
+    nav::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
     }
 
-    .chatbot-toggle img.rotating {
-      animation: spin 0.6s ease forwards;
+    nav::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 3px;
     }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    nav::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.5);
+    }
+}
+
+.quiz-intro {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.quiz-selector {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.quiz-dropdown {
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    background: rgba(26, 26, 26, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-family: inherit;
+    cursor: pointer;
+    min-width: 250px;
+}
+
+.quiz-btn {
+    background: linear-gradient(90deg, #ff3366, #00ffff);
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.quiz-btn:hover {
+    transform: scale(1.05);
+}
+
+.quiz-container {
+    width: 100%;
+    min-height: 500px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.quiz-container iframe {
+    width: 100%;
+    height: 700px;
+    border: none;
+}
+
+.quiz-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2rem;
+}
+
+/* Quiz loading animation */
+.quiz-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+}
+
+.quiz-loading::after {
+    content: '';
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top-color: #ff3366;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .quiz-selector {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .quiz-dropdown {
+        width: 90%;
+    }
+    
+    .quiz-btn {
+        width: 90%;
+    }
+    
+    .quiz-container iframe {
+        height: 600px;
+    }
+}    
+
+
+
+.product-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.5s ease backwards;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-color: #ff3366;
+}
+
+.product-video-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.product-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-video-container {
+    transform: scale(1.02);
+}
+
+.video-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    opacity: 0.8;
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 2;
+}
+
+.product-video-container:hover .video-play-btn {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+    background: rgba(255, 51, 102, 0.8);
+}
+
+.product-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    margin-top: 0.5rem;
+}
+
+.product-description {
+    color: #ddd;
+    margin-bottom: 1rem;
+}
+
+.product-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #00ffff;
+    margin: 0.5rem 0;
+}
+
+.product-button {
+    background: linear-gradient(90deg, #ff3366, #00ffff);
+    color: #fff;
+    text-decoration: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+    margin-top: auto;
+    display: inline-block;
+}
+
+.product-button:hover {
+    transform: scale(1.05);
+}
+
+/* Add placeholder video styling */
+.product-video-container video[poster="product1-123.jpeg"],
+
+/* Style for video modal */
+.video-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.video-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.video-modal-content {
+    width: 80%;
+    max-width: 800px;
+    position: relative;
+}
+
+.video-modal video {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.close-modal {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+@media (max-width: 768px) {
+    .product-card {
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .social-icons {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
     }
 
-    .chatbot-box {
-      position: fixed;
-      bottom: 100px;
-      right: 20px;
-      width: 90vw;
-      max-width: 340px;
-      height: 60vh;
-      max-height: 500px;
-      background: rgba(0, 0, 0, 0.85);
-      border: 1px solid #00ffe0;
-      border-radius: 10px;
-      padding: 10px;
-      display: none;
-      z-index: 49;
-      color: white;
-      box-sizing: border-box;
+    .social-icon {
+        width: 90%;
     }
+}
 
-    .chatbot-box textarea {
-      width: 100%;
-      height: 70px;
-      background: #111;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 8px;
-      resize: none;
-    }
 
-    @media (max-width: 600px) {
-      .chatbot-box {
-        width: 90vw;
-        height: 65vh;
-        bottom: 90px;
-        right: 15px;
-      }
-    }
 
-    .glow {
-      animation: pulseGlow 2s infinite alternate;
-    }
 
-    @keyframes pulseGlow {
-      0% { box-shadow: 0 0 8px #00ffe0; }
-      100% { box-shadow: 0 0 20px #00ffe0; }
-    }
-  </style>
+
+</style>
+
+
+
+
+
 </head>
+
 <body>
-<!-- Responsive Centered Button (behind mobile menu) -->
-<div class="fixed top-[90px] left-1/2 transform -translate-x-1/2 w-[90%] max-w-[320px] text-center px-2 z-30">
-  <a href="https://physicsexplorer.netlify.app" target="_blank"
-     class="block bg-cyan-400 text-black font-bold text-sm md:text-base py-2 px-4 rounded-full shadow-md hover:bg-cyan-300 transition glow whitespace-nowrap overflow-hidden text-ellipsis">
-    🧠 For Physics, reach out here
-  </a>
-</div>
+    <div class="noise"></div>
+
+<button class="nav-toggle">☰</button>
+    <nav>
+      
+
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#blog">Blog</a>
+        <a href="#goals">Goals</a>
+        <a href="#achievements">Achievements</a>
+        <a href="#products">Products</a>
+        <a href="#contact">Contact</a>
+        <a href="#social">Connect With Me</a>
+        <a href="#quizzes">Physics Quizzes</a>
+        <a href="#logout"><button onclick="firebase.auth().signOut().then(() => window.location='login.html')">Logout</button></a>
+   </nav>
 
 
-
-
-  <!-- Navbar -->
-  <nav class="w-full flex justify-between items-center px-4 py-4 glass fixed top-0 z-50">
-    <a href="index.html" class="text-2xl glow-text">Xploreon</a>
-    <button id="menuToggle" class="md:hidden text-white text-2xl">☰</button>
-    <ul class="hidden md:flex space-x-6 text-white text-sm md:text-base">
-      <li><a href="mission.html">Mission</a></li>
-      <li><a href="tech.html">Tech</a></li>
-      <li><a href="team.html">Team</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
-
-  <!-- Mobile menu -->
-  <ul id="mobileMenu" class="md:hidden hidden flex-col bg-black bg-opacity-90 text-white p-4 absolute w-full top-16 left-0 z-40">
-    <li><a href="mission.html" class="block py-2">Mission</a></li>
-    <li><a href="tech.html" class="block py-2">Tech</a></li>
-    <li><a href="team.html" class="block py-2">Team</a></li>
-    <li><a href="contact.html" class="block py-2">Contact</a></li>
-  </ul>
-
-  <!-- Hero Section -->
-  <section class="min-h-screen background-section flex items-center justify-center flex-col text-center px-6 pt-32 relative">
-    <h1 class="text-4xl md:text-6xl font-extrabold glow-text mb-6 tracking-widest fade-text">
-      WELCOME TO XPLOREON
-    </h1>
-    <p class="text-lg md:text-xl text-cyan-200 max-w-xl mx-auto mb-6">
-      Igniting humanity’s interplanetary evolution through deep-tech innovation.
-    </p>
-    <a href="mission.html" class="futuristic-button">Explore Our Mission</a>
-  </section>
-
-  <!-- Chatbot UI -->
-  <button class="chatbot-toggle" onclick="toggleChatbot()">
-    <img src="R.png" alt="Chatbot Rocket Icon" width="60" id="rocketIcon">
-  </button>
-  <div class="chatbot-box" id="chatbotBox">
-    <div style="height: 300px; overflow-y: auto; margin-bottom: 8px; background: #111; padding: 5px; border-radius: 5px;" id="chatLog">
-      <div><b>Voyager:</b> Hello! Ask me anything about Xplorers 🚀</div>
+    <div class="hero">
+        <!-- Video background -->
+        <video class="video-bg" autoplay loop muted playsinline>
+            <!-- Replace with your actual video file path -->
+            <source src="227152_medium.mp4" type="video/mp4">
+            <!-- Add additional source formats for better browser compatibility -->
+            <!-- <source src="your-video-file.webm" type="video/webm"> -->
+        </video>
+        
+        <!-- Overlay for better text visibility -->
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title">Xploreon</h1>
+            <p class="hero-subtitle" id="hero-subtitle">Exploring the DeepSpace</p>
+        </div>
     </div>
-    <textarea id="userInput" placeholder="Type your message..."></textarea>
-    <button onclick="sendMessage()" style="margin-top: 6px; width: 100%; background: #00ffe0; color: black; font-weight: bold; border: none; border-radius: 5px; padding: 6px;">Send</button>
-  </div>
 
-  <script>
-    const toggle = document.getElementById('menuToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    toggle.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
+    <section id="about" class="section">
+        <h2 class="section-title">About</h2>
+        <div class="grid">
+            <div class="card">
+                <p>• Dedicated physics enthusiast exploring the frontiers of quantum mechanics, relativity, and
+                    cosmology.<br></p>
+            </div>
+
+            <div class="card">
+                <p>• Currently focused on theoretical physics and pushing the boundaries of our understanding of the
+                    universe.<br></p>
+            </div>
+
+            <div class="card">
+                <p>• Class 12 Science Stream (Physics, Mathematics, Chemistry)</span><br></p>
+            </div>
+
+            <div class="card">
+                <p>• Excelling in core science and mathematics subjects.<br></p>
+            </div>
+
+            <div class="card">
+                <p>• Actively engaging in physics-related discussions and exploring advanced topics beyond the
+                    curriculum.</p><br>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section">
+        <h2 class="section-title">Skills</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Physics Concepts</h3>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 40%"></div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Quantum Mechanics</h3>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 20%"></div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Mathematics</h3>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 60%"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <h2 class="section-title">Research Projects</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Time Travel & Wormholes</h3>
+                <p>Investigating theoretical concepts of spacetime manipulation and Einstein's field equations</p>
+            </div>
+            <div class="card">
+                <h3>White Holes</h3>
+                <p>Theoretical study of white holes as counterparts to black holes</p>
+            </div>
+            <div class="card">
+                <h3>Quantum Mechanics</h3>
+                <p>Advanced study of quantum principles through Feynman's approach</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="blog" class="section">
+        <h2 class="section-title">Blog</h2>
+        <div class="grid">
+            <div class="blog-card">
+                <h3 class="blog-title">String Theory</h3>
+                <p class="blog-excerpt">Dive deep into the fascinating world of string theory and discover how it might
+                    unify all fundamental forces of nature.</p>
+                <a href="https://open.substack.com/pub/physicsbyavikam/p/string-theory" class="blog-link"
+                    target="_blank">Read More →</a>
+            </div>
+            <div class="blog-card">
+                <h3 class="blog-title">The General Theory of Relativity</h3>
+                <p class="blog-excerpt">Explore Einstein's groundbreaking theory that revolutionized our understanding
+                    of gravity, space, and time.</p>
+                <a href="https://physicsbyavikam.substack.com/p/the-general-theory-of-relativity?r=54qmr7"
+                    class="blog-link" target="_blank">Read More →</a>
+            </div>
+          <div class="blog-card">
+                <h3 class="blog-title">Subscribe to My Newsletter</h3>
+                <p class="blog-excerpt">Get the latest insights on physics, quantum mechanics, and the universe
+                    delivered to your inbox.</p>
+                <iframe src="https://physicsbyavikam.substack.com/embed" width="100%" height="250"
+                    style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; background: transparent;"
+                    frameborder="0" scrolling="no"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section id="goals" class="section">
+        <h2 class="section-title">Goals</h2>
+        <div class="grid">
+            <div class="card">
+                <p>• Pursue higher education in physics at a leading institution such as the University of Cambridge.
+                </p>
+            </div>
+            <div class="card">
+                <p>• Conduct groundbreaking research in quantum mechanics, relativity, and cosmology.</p>
+            </div>
+            <div class="card">
+                <p>• Join esteemed organizations such as the Royal Society of Physics and contribute to advancing
+                    scientific understanding.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="achievements" class="section">
+        <h2 class="section-title">Achievements</h2>
+        <div class="grid">
+            <div class="certificate-card">
+                <a href="chat gpt.png" data-lightbox="certificates" data-title="ChatGPT Verification">
+                <img src="chat gpt.png" alt="ChatGPT Certificate" class="certificate-image">
+                </a>
+                <h3 class="certificate-title">ChatGPT Verification</h3>
+                <p>Successfully verified expertise with ChatGPT and demonstrated proficiency in AI interaction.</p>
+                <p class="certificate-date">Published: January 19, 2025</p>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 100%"></div>
+                </div>
+            </div>
+
+            <div class="certificate-card">
+                <a href="0.jpg" data-lightbox="certificates" data-title="PowerBI Workshop">
+                <img src="0.jpg" alt="PowerBI Certificate" class="certificate-image">
+                </a>
+                <h3 class="certificate-title">PowerBI Workshop</h3>
+                <p>Completed comprehensive training in creating AI-Powered interactive dashboards using PowerBI.</p>
+                <p class="certificate-date">Published: January 19, 2025</p>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 100%"></div>
+                </div>
+            </div>
+
+            <div class="certificate-card">
+                <a href="isro.jpeg" data-lightbox="certificates" data-title="ISRO Workshop">
+                <img src="isro.jpeg" alt="ISRO" class="certificate-image">
+                </a>
+                <h3 class="certificate-title">ISRO Young Scientist Program</h3>
+                <p>Thrilled to be chosen for a prestigious 15-day space science training program at the (ISRO).</p>
+                <p class="certificate-date">Published: January 20, 2025</p>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 100%"></div>
+                </div>
+            </div>
+
+            <div class="certificate-card">
+                <a href="ai certificate.jpg" data-lightbox="certificates" data-title="Artificial Intelligence Workshop">
+                <img src="ai certificate.jpg" alt="freedom with ai" class="certificate-image">
+                </a>
+                <h3 class="certificate-title">Artificial Intelligence Workshop</h3>
+                <p>Unlocking human potential through responsible AI innovation.</p>
+                <p class="certificate-date">Published: March 6, 2025</p>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 100%"></div>
+                </div>
+            </div>         
+            
+            <div class="certificate-card">
+                 <a href="cybersecurity.jpg" data-lightbox="certificates" data-title="Introduction To Cybersecurity">
+                <img src="cybersecurity.jpg" alt="cybersecurity" class="certificate-image">
+                </a>
+                <h3 class="certificate-title">Introduction To Cybersecurity</h3>
+                <p>Cybersecurity is the practice of protecting systems, networks, and programs from digital attacks, unauthorized access, and data theft.</p>
+                <p class="certificate-date">Published: March 6, 2025</p>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 100%"></div>
+                </div>
+            </div>     
+
+
+
+
+        </div>
+    </section>
+<section id="products" class="section">
+    <h2 class="section-title">Products</h2>
+    <div class="grid">
+        <div class="product-card">
+            <div class="product-video-container">
+                <video class="product-video" poster="123.jpeg" preload="metadata" muted>
+                    <source src="2025-03-18 10-38-40.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-play-btn">▶</div>
+            </div>
+            <h3 class="product-title">Jarvis An AI Assistant</h3>
+            <p class="product-description">Jarvis is a smart AI assistant inspired by the Marvel universe, designed to help users with tasks, answer questions, control smart devices, and manage daily routines through voice or text. It’s efficient, responsive, and capable of learning user preferences over time, making interactions feel intuitive and personalized.</p>
+            <p class="product-price">$49.99</p>
+            <a href="https://buy.stripe.com/3cs8xAbBo6IC5eU3cc" class="product-button" target="_blank">Buy Now</a>
+        </div>
+
+</section>
+
+
+
+
+    <section id="contact" class="section">
+        <h2 class="section-title">Contact</h2>
+        <div class="contact-form">
+            <form action="mailto:physicsbyavikam@gmail.com" method="POST" enctype="text/plain">
+                <input type="email" placeholder="Your Email">
+                <input type="text" id="subject" placeholder="Subject" required>
+                <textarea placeholder="Your message" rows="4" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+
+<section id="social" class="section">
+    <h2 class="section-title">Connect With Me</h2>
+    <div class="social-icons">
+        <a href="http://www.youtube.com/@physicsbyavikam602" target="_blank" class="social-icon youtube">
+            <img src="youtube-logo.jpeg" alt="YouTube" class="social-logo">
+            <span>YouTube Channel</span>
+        </a>
+        <a href="https://chat.whatsapp.com/GFLgsYvEaRoIp076gqWx5N" target="_blank" class="social-icon whatsapp">
+            <img src="whatsapp-logo.png" alt="WhatsApp" class="social-logo">
+            <span>WhatsApp Community</span>
+        </a>
+
+         <a href="https://www.instagram.com/avikamdeol/?__pwa=1" target="_blank" class="social-icon Instagram">
+            <img src="insta.jpeg" alt="Instagram" class="social-logo">
+            <span>Instagram Account</span>
+        </a>
+   
+     <a href="https://x.com/XploreonXn" target="_blank" class="social-icon Twitter">
+            <img src="twitter.jpg" alt="Twitter" class="social-logo">
+            <span>Twitter Account</span>
+        </a>
+
+         <a href="https://www.linkedin.com/in/avikam-deol-979745349/" target="_blank" class="social-icon LinkedIn">
+            <img src="linkedin.png" alt="LinkedIn" class="social-logo">
+            <span>LinkedIn Account</span>
+        </a>
+    </div>
+</section>
+
+
+<section id="quizzes" class="section">
+    <h2 class="section-title">Physics Quizzes</h2>
+    
+    <div class="quiz-intro">
+        <p>Test your physics knowledge with these interactive quizzes. Select a topic below and challenge yourself! if you have all correct you will win and will be able to meet me.</p>
+    </div>
+    
+    <div class="quiz-selector">
+        <select id="quiz-dropdown" class="quiz-dropdown">
+            <option value="">Select a Physics Quiz</option>
+            <option value="quantum">Quantum Mechanics Basics</option>
+            <option value="relativity">Theory of Relativity</option>
+            <option value="mechanics">Classical Mechanics</option>
+            <option value="thermodynamics">Thermodynamics</option>
+            <option value="waves">Waves & Oscillations</option>
+            <option value="electromagnetism">Electromagnetism</option>
+            <option value="modern">Modern Physics</option>
+            <option value="astrophysics">Astrophysics</option>
+        </select>
+        <button id="load-quiz-btn" class="quiz-btn">Load Quiz</button>
+    </div>
+    
+    <div id="quiz-container" class="quiz-container">
+        <!-- Quiz iframe will be loaded here -->
+        <div class="quiz-placeholder">
+            <p>Select a quiz topic from the dropdown above to begin!</p>
+        </div>
+    </div>
+</section>
+
+    <script>
+        // Check if video is supported and handle fallback
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.querySelector('.video-bg');
+            
+            // Check if browser supports video
+            const isVideoSupported = !!document.createElement('video').canPlayType;
+            
+            if (!isVideoSupported || video.canPlayType('video/mp4') === '') {
+                // Fallback to original gradient background if video isn't supported
+                document.querySelector('.hero').style.background = 'linear-gradient(45deg, #000000, #1a1a1a)';
+                video.style.display = 'none';
+            }
+            
+            // Try to play the video automatically
+            const playPromise = video.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    // Auto-play was prevented
+                    console.log("Video autoplay was prevented. This is common on mobile devices.");
+                    // Fallback to static background
+                    document.querySelector('.hero').style.background = 'linear-gradient(45deg, #000000, #1a1a1a)';
+                });
+            }
+        });
+
+        // Intersection Observer for fade-in animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        // Observe all cards
+        document.querySelectorAll('.card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Mobile navigation toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const nav = document.querySelector('nav');
+
+        navToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            navToggle.textContent = nav.classList.contains('active') ? '✕' : '☰';
+        });
+
+        // Close mobile nav when clicking a link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                navToggle.textContent = '☰';
+            });
+        });
+    </script>
+
+    <div class="chatbot" id="chatbot">
+        ✉️
+    </div>
+
+    <div class="chatbot-popup" id="chatbot-popup">
+        <header>Physics Chatbot</header>
+        <div class="chat-messages" id="chat-messages"></div>
+        <div class="chat-input">
+            <textarea id="chat-message" rows="2" placeholder="Ask about Physics..." style="color: #000;"></textarea>
+            <button id="send-message">Send</button>
+        </div>
+    </div>
+
+    <style>
+        .chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #2c3e50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            font-size: 1.5em;
+        }
+
+        .chatbot-popup {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        .chatbot-popup header {
+            background: #2c3e50;
+            color: white;
+            padding: 10px;
+            border-radius: 10px 10px 0 0;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            background: #f5f5f5;
+        }
+
+        .chat-input {
+            padding: 10px;
+            border-top: 1px solid #eee;
+            background: white;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            max-width: 80%;
+            padding: 6px 10px;
+            border-radius: 15px;
+            word-wrap: break-word;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .user-message {
+            background: #2c3e50;
+            color: white;
+            margin-left: auto;
+            border-radius: 15px 15px 0 15px;
+        }
+
+        .bot-message {
+            background: #e9ecef;
+            color: black;
+            margin-right: auto;
+            border-radius: 15px 15px 15px 0;
+        }
+
+        #chat-message {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: none;
+            font-size: 14px;
+            background: white;
+            color: #000;
+        }
+
+        #chat-message::placeholder {
+            color: #666;
+        }
+
+        #send-message {
+            width: 100%;
+            padding: 10px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        #send-message:hover {
+            background: #34495e;
+        }
+
+        /* Scrollbar styling */
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+
+    <script>
+        const chatbotButton = document.getElementById('chatbot');
+        const chatbotPopup = document.getElementById('chatbot-popup');
+        const installPopup = document.getElementById('install-popup');
+        const chatMessages = document.getElementById('chat-messages');
+
+ chatbotButton.addEventListener('click', () => {
+  const isOpen = chatbotPopup.style.display === 'flex';
+  chatbotPopup.style.display = isOpen ? 'none' : 'flex';
+
+  // Bring focus to the textarea if opening
+  if (!isOpen) {
+    document.getElementById('chat-message').focus();
+  }
+
+  // Hide install popup if it's open
+  if (!isOpen && installPopup && installPopup.style.display !== 'none') {
+    installPopup.style.display = 'none';
+  }
+});
+
+
+        function addMessage(message, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+            messageDiv.textContent = message;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        document.getElementById('send-message').addEventListener('click', async () => {
+            const message = document.getElementById('chat-message').value;
+            if (message.trim()) {
+                addMessage(message, true);
+
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer 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',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "model": "gpt-3.5-turbo",
+                        "messages": [
+                            {
+                                "role": "system",
+                                "content": "You are a helpful physics expert. Provide accurate and concise explanations about physics concepts."
+                            },
+                            {
+                                "role": "user",
+                                "content": message
+                            }
+                        ],
+                        "max_tokens": 300,
+                        "temperature": 0.7
+                    })
+                };
+
+                try {
+                      document.getElementById('chat-message').value = '';
+                    const response = await fetch('https://api.openai.com/v1/chat/completions', options);
+                    const data = await response.json();
+                    const answer = data.choices[0].message.content;
+                    addMessage(answer, false);
+                } catch (err) {
+                    console.error('Error:', err);
+                    addMessage('Sorry, there was an error processing your request.', false);
+                }
+            }
+        });
+
+        // Allow sending message with Enter key
+        document.getElementById('chat-message').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                document.getElementById('send-message').click();
+            }
+        });
+
+    </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the subtitle element
+        const subtitleElement = document.getElementById('hero-subtitle');
+        const subtitleText = subtitleElement.textContent;
+        
+        // Clear the current content
+        subtitleElement.textContent = '';
+        
+        // Add each letter wrapped in a span with staggered animation delay
+        for (let i = 0; i < subtitleText.length; i++) {
+            const span = document.createElement('span');
+            span.textContent = subtitleText[i] === ' ' ? '\u00A0' : subtitleText[i];
+            span.style.animationDelay = `${1.0 + i * 0.08}s`; // Start after title animation with staggered delays
+            subtitleElement.appendChild(span);
+        }
+    });
+</script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const quizDropdown = document.getElementById('quiz-dropdown');
+        const loadQuizBtn = document.getElementById('load-quiz-btn');
+        const quizContainer = document.getElementById('quiz-container');
+        
+        // Google Form URLs - Replace these with your actual Google Form quiz URLs
+        const quizForms = {
+            quantum: "https://forms.gle/NUUL8GZ8bhfGZbeS8",
+            relativity: "https://docs.google.com/forms/d/e/1FAIpQLSflWPWiBi4fnWuxLZSKBuspJyd0CKFBuHxoX09_TvkUJeWvOA/viewform?usp=header",
+            mechanics: "https://docs.google.com/forms/d/e/1FAIpQLSdhhQFJpzA-5khQ0Va-OQ484Rqk6riCv_avn3u0_Vegui9BZw/viewform?usp=header",
+            thermodynamics: "https://docs.google.com/forms/d/e/1FAIpQLSeCjCk7E3Z3HLPIetWxZz7W51gRBiQ23LNEALfgY48t2eBo0w/viewform?usp=header",
+            waves: "https://docs.google.com/forms/d/e/1FAIpQLSfrB2cyv-QQnhZqyejeyfhoglqfdTD8MBDeJxmRlL2s5c96AA/viewform?usp=header",
+            electromagnetism: "https://docs.google.com/forms/d/e/1FAIpQLSd5l1ruro2VxABO-kmZA2SWBkCsruW2qw8ixiNvnGKWsLtKCQ/viewform?usp=header",
+            modern: "https://docs.google.com/forms/d/e/1FAIpQLSer92HsgnRJ_LZIFk_UGQeGTK_FkF_GgfenS-7l1CJtbOFOCA/viewform?usp=header",
+            astrophysics: "https://docs.google.com/forms/d/e/1FAIpQLSeH1eHg42dRYTIQ4S21v1sS9vJ93v9dkukBjU5SdG-mfYBeOg/viewform?usp=header"
+        };
+        
+        loadQuizBtn.addEventListener('click', function() {
+            const selectedQuiz = quizDropdown.value;
+            
+            if (!selectedQuiz) {
+                alert('Please select a quiz topic first!');
+                return;
+            }
+            
+            // Show loading state
+            quizContainer.innerHTML = '<div class="quiz-loading"></div>';
+            
+            // Check if we have a form URL for this topic
+            if (quizForms[selectedQuiz]) {
+                // Create and load iframe with selected quiz
+                const iframe = document.createElement('iframe');
+                iframe.src = quizForms[selectedQuiz];
+                iframe.onload = function() {
+                    // Remove loading state when iframe loads
+                    quizContainer.querySelector('.quiz-loading')?.remove();
+                };
+                
+                // Clear container and add iframe
+                quizContainer.innerHTML = '';
+                quizContainer.appendChild(iframe);
+                
+                // Scroll to the quiz container
+                quizContainer.scrollIntoView({behavior: 'smooth'});
+            } else {
+                quizContainer.innerHTML = `
+                    <div class="quiz-placeholder">
+                        <p>Sorry, the selected quiz is not available at the moment. Please try another topic.</p>
+                    </div>
+                `;
+            }
+        });
+    });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Create the video modal element
+    const videoModal = document.createElement('div');
+    videoModal.className = 'video-modal';
+    videoModal.innerHTML = `
+        <div class="video-modal-content">
+            <button class="close-modal">&times;</button>
+            <video controls></video>
+        </div>
+    `;
+    document.body.appendChild(videoModal);
+
+    // Get all video containers
+    const videoContainers = document.querySelectorAll('.product-video-container');
+    const modalVideo = videoModal.querySelector('video');
+    const closeBtn = videoModal.querySelector('.close-modal');
+
+    // Add click event to video containers
+    videoContainers.forEach(container => {
+        container.addEventListener('click', function() {
+            // Get the video source
+            const sourceVideo = this.querySelector('video');
+            const videoSrc = sourceVideo.querySelector('source').src;
+            
+            // Set the modal video source
+            modalVideo.innerHTML = `<source src="${videoSrc}" type="video/mp4">`;
+            modalVideo.load();
+            
+            // Show the modal
+            videoModal.classList.add('active');
+            
+            // Play the video
+            modalVideo.play();
+        });
     });
 
-    function toggleChatbot() {
-      const box = document.getElementById('chatbotBox');
-      const rocket = document.getElementById('rocketIcon');
-      box.style.display = box.style.display === 'block' ? 'none' : 'block';
-      rocket.classList.add('rotating');
-      setTimeout(() => rocket.classList.remove('rotating'), 600);
-    }
+    // Close modal when clicking the close button
+    closeBtn.addEventListener('click', function() {
+        modalVideo.pause();
+        videoModal.classList.remove('active');
+    });
 
-    async function sendMessage() {
-      const input = document.getElementById('userInput');
-      const chatLog = document.getElementById('chatLog');
-      const userMessage = input.value.trim();
-      if (!userMessage) return;
+    // Close modal when clicking outside the video
+    videoModal.addEventListener('click', function(e) {
+        if (e.target === videoModal) {
+            modalVideo.pause();
+            videoModal.classList.remove('active');
+        }
+    });
 
-      chatLog.innerHTML += `<div><b>You:</b> ${userMessage}</div>`;
-      input.value = '';
+    // Handle hover effects for video previews
+    videoContainers.forEach(container => {
+        const video = container.querySelector('video');
+        
+        container.addEventListener('mouseenter', function() {
+            // Play the video on hover (muted)
+            video.currentTime = 0;
+            video.play().catch(err => {
+                // Auto-play might be prevented by browser settings
+                console.log('Preview autoplay prevented by browser');
+            });
+        });
 
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer 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'
-        },
-        body: JSON.stringify({
-          model: 'gpt-3.5-turbo',
-          messages: [{ role: 'user', content: userMessage }]
+        container.addEventListener('mouseleave', function() {
+            // Pause the video when not hovering
+            video.pause();
+            video.currentTime = 0;
+        });
+    });
+});
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(registration => {
+          console.log('Service Worker registered:', registration);
         })
-      });
+        .catch(error => {
+          console.error('Service Worker registration failed:', error);
+        });
+    });
+  }
+</script>
 
-      const data = await response.json();
-      const botReply = data.choices?.[0]?.message?.content || 'Sorry, something went wrong.';
-      chatLog.innerHTML += `<div><b>Voyager:</b> ${botReply}</div>`;
-      chatLog.scrollTop = chatLog.scrollHeight;
-    }
-  </script>
+<footer style="background: radial-gradient(circle at top left, #0a0a0a, #111); color: #fff; padding: 4rem 2rem 2rem; font-family: 'Space Grotesk', sans-serif;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; max-width: 1200px; margin: 0 auto; gap: 2rem;">
+
+    <div style="flex: 1; min-width: 250px;">
+      <img src="xploreon.jpg" alt="Xploreon Logo" style="width: 180px; margin-bottom: 1rem;">
+      <p style="line-height: 1.6; color: #ccc;">Exploring the fabric of the universe through quantum mechanics, astrophysics, and futuristic tech. Xploreon is your gateway to deep space discovery.</p>
+    </div>
+
+    <div style="flex: 1; min-width: 180px;">
+      <h3 style="margin-bottom: 1rem;">Quick Links</h3>
+      <ul style="list-style: none; padding: 0;">
+        <li><a href="#about" style="color: #fff; text-decoration: none;">About</a></li>
+        <li><a href="#projects" style="color: #fff; text-decoration: none;">Projects</a></li>
+        <li><a href="#blog" style="color: #fff; text-decoration: none;">Blog</a></li>
+        <li><a href="#quizzes" style="color: #fff; text-decoration: none;">Quizzes</a></li>
+        <li><a href="#contact" style="color: #fff; text-decoration: none;">Contact</a></li>
+      </ul>
+    </div>
+
+    <div style="flex: 1; min-width: 200px;">
+      <h3 style="margin-bottom: 1rem;">Focus Areas</h3>
+      <ul style="list-style: none; padding: 0; color: #ccc;">
+        <li>Quantum Mechanics</li>
+        <li>Astrophysics</li>
+        <li>Time Machine</li>
+        <li>AI Projects</li>
+        <li>Wormholes & Relativity</li>
+      </ul>
+    </div>
+
+    <div style="flex: 1; min-width: 250px;">
+      <h3 style="margin-bottom: 1rem;">Contact</h3>
+      <p>📍 Roorkee, India</p>
+      <p>📧 <a href="mailto:physicsbyavikam@gmail.com" style="color: #00ffff;">physicsbyavikam@gmail.com</a></p>
+    </div>
+
+  </div>
+
+  <hr style="margin: 2rem 0; border-color: rgba(255,255,255,0.1);">
+  <p style="text-align: center; color: #888;">© 2025 Xploreon. All Rights Reserved.</p>
+</footer>
+<div id="install-popup" style="display: none; position: fixed; bottom: 20px; left: 20px; right: 20px; max-width: 300px; margin: auto; background: rgba(0,0,0,0.85); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1rem; text-align: center; z-index: 800; color: white; box-shadow: 0 10px 30px rgba(0,0,0,0.4); font-family: 'Space Grotesk', sans-serif;">
+  <p style="margin-bottom: 0.5rem;">Install <strong>Xploreon</strong> for a better experience!</p>
+  <button id="popup-install-btn" style="background: linear-gradient(90deg, #ff3366, #00ffff); color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: bold; cursor: pointer;">Install App</button>
+</div>
+<script>
+  let deferredPrompt;
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+
+    // Show popup
+    const popup = document.getElementById('install-popup');
+    popup.style.display = 'block';
+
+    document.getElementById('popup-install-btn').addEventListener('click', () => {
+      popup.style.display = 'none'; // hide popup
+      deferredPrompt.prompt();
+
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User installed the app');
+        } else {
+          console.log('User dismissed the install prompt');
+        }
+        deferredPrompt = null;
+      });
+    });
+  });
+</script>
+
 
 </body>
+
 </html>
