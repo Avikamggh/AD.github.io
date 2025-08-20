@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<link rel="manifest" href="/manifest.json">
+
 <link rel="apple-touch-icon" href="/x.png">
 <meta name="theme-color" content="#00aaff">
 
@@ -1342,8 +1342,8 @@ nav a:hover::after {
                 <span>Twitter Account</span>
             </a>
 
-            <a href="#" target="_blank" class="social-icon linkedin">
-                <img src="linkedin-logo.png" alt="LinkedIn" class="social-logo">
+            <a href=www.linkedin.com/in/avikam-deol-3a2105364" target="_blank" class="social-icon linkedin">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" class="social-logo">
                 <span>LinkedIn Profile</span>
             </a>
         </div>
@@ -1862,37 +1862,9 @@ nav a:hover::after {
         <p style="text-align: center; color: #888;">© 2025 Avikam Deol - Xploreon. All Rights Reserved.</p>
     </footer>
 
-    <div id="install-popup" style="display: none; position: fixed; bottom: 20px; left: 20px; right: 20px; max-width: 300px; margin: auto; background: rgba(0,0,0,0.85); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1rem; text-align: center; z-index: 800; color: white; box-shadow: 0 10px 30px rgba(0,0,0,0.4); font-family: 'Space Grotesk', sans-serif;">
-        <p style="margin-bottom: 0.5rem;">Install <strong>Avikam's Portfolio</strong> for a better experience!</p>
-        <button id="popup-install-btn" style="background: linear-gradient(90deg, #ff3366, #00ffff); color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: bold; cursor: pointer;">Install App</button>
-    </div>
+ 
 
-    <script>
-        let deferredPrompt;
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-
-            // Show popup
-            const popup = document.getElementById('install-popup');
-            popup.style.display = 'block';
-
-            document.getElementById('popup-install-btn').addEventListener('click', () => {
-                popup.style.display = 'none';
-                deferredPrompt.prompt();
-
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('User installed the app');
-                    } else {
-                        console.log('User dismissed the install prompt');
-                    }
-                    deferredPrompt = null;
-                });
-            });
-        });
-    </script>
+    
 
 </body>
 
