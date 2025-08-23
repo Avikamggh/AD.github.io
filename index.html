@@ -1028,6 +1028,53 @@ nav a:hover::after {
 .blog-link:hover {
     transform: scale(1.05);
 }
+    /* ===== Mini Window (scoped with mw- prefix to avoid conflicts) ===== */
+.mw-miniwin {
+  position: fixed;
+  width: 460px; height: 280px; min-width: 320px; min-height: 210px;
+  max-width: 90vw; max-height: 85vh;
+  border-radius: 16px; overflow: hidden; z-index: 4000;
+}
+.mw-titlebar {
+  cursor: move; user-select: none; padding: 8px 10px;
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(0,20,30,0.45);
+  border-bottom: 1px solid rgba(0,255,224,0.25);
+}
+.mw-dots { display: flex; gap: 6px; }
+.mw-dot { width: 10px; height: 10px; border-radius: 999px; }
+.mw-dot.red { background: #ff5f57; } .mw-dot.yellow { background: #fdbc2e; } .mw-dot.green { background: #28c840; }
+
+.mw-iframe { width: 100%; height: calc(100% - 42px); background: #000; border: 0; }
+
+.mw-toolbar { margin-left: auto; display: flex; gap: 8px; }
+.mw-tool {
+  font-size: 12px; padding: 6px 10px; border-radius: 999px;
+  border: 1px solid rgba(0,255,224,0.35); background: rgba(0,255,224,0.08); color: #dffffa;
+}
+.mw-tool:hover { background: rgba(0,255,224,0.16); }
+
+.mw-resize { position: absolute; right: 4px; bottom: 4px; width: 16px; height: 16px;
+  border-right: 2px solid rgba(0,255,224,0.5);
+  border-bottom: 2px solid rgba(0,255,224,0.5);
+  cursor: nwse-resize; opacity: .9;
+}
+
+/* Loader + blocked states (uses your glass aesthetic) */
+.mw-loader { position: absolute; inset: 42px 0 0 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+.mw-spinner {
+  border: 6px solid rgba(255,255,255,.1);
+  border-top: 6px solid #00ffe0; border-radius: 50%;
+  width: 44px; height: 44px; animation: mw-spin 1s linear infinite;
+  box-shadow: 0 0 12px rgba(0,255,224,.35), 0 0 32px rgba(0,255,224,.18);
+}
+@keyframes mw-spin { to { transform: rotate(360deg); } }
+
+.mw-blocked { position: absolute; inset: 42px 0 0 0; display: none; align-items: center; justify-content: center; text-align: center; padding: 18px; }
+.mw-badge { font-size: 10px; padding: 3px 8px; border-radius: 999px; border: 1px solid rgba(0,255,224,.35); background: rgba(0,255,224,.06); color: #bbfff5; }
+
+/* Use your existing .glass style to skin the window; combine it in HTML */
+
 </style>
 
 </head>
@@ -1659,6 +1706,124 @@ nav a:hover::after {
             });
         }
     </script>
+
+    <script>
+(function(){
+  const miniContainer = document.getElementById('miniContainer') || document.body;
+  let zTop = 5000;
+
+  function openMini(title, url, altUrl){
+    const win = document.createElement('div');
+    win.className = 'mw-miniwin glass border border-cyan-300/30';
+    win.style.left = (12 + Math.random()*40) + 'px';
+    win.style.top  = (12 + Math.random()*30) + 'px';
+    win.style.zIndex = ++zTop;
+
+    win.innerHTML = `
+      <div class="mw-titlebar">
+        <div class="mw-dots"><span class="mw-dot red"></span><span class="mw-dot yellow"></span><span class="mw-dot green"></span></div>
+        <strong class="text-sm">${title}</strong>
+        <span class="mw-badge hidden md:inline-block ml-2">${safeHost(url)}</span>
+        <div class="mw-toolbar">
+          <a class="mw-tool" href="${url}" target="_blank" rel="noopener">Open</a>
+          <button class="mw-tool" data-action="close">Close</button>
+        </div>
+      </div>
+      <div class="mw-loader"><div class="mw-spinner"></div></div>
+      <div class="mw-blocked glass">
+        <div>
+          <h4 class="font-semibold mb-1">Preview blocked by site</h4>
+          <p class="text-sm opacity-90">Some websites disable embedding. Use <em>Open</em> to view it in a new tab.</p>
+        </div>
+      </div>
+      <iframe class="mw-iframe" referrerpolicy="no-referrer"
+        sandbox="allow-scripts allow-forms allow-same-origin allow-pointer-lock allow-downloads"></iframe>
+      <div class="mw-resize" title="Resize"></div>
+    `;
+
+    const titlebar = win.querySelector('.mw-titlebar');
+    const iframe   = win.querySelector('iframe');
+    const loader   = win.querySelector('.mw-loader');
+    const blocked  = win.querySelector('.mw-blocked');
+
+    // Load main URL with a 5s guard; if still not loaded and altUrl exists, try alt once
+    let loaded = false, triedAlt = false;
+    function tryLoad(u){
+      iframe.src = u;
+      const guard = setTimeout(()=>{
+        if(!loaded){
+          if(altUrl && !triedAlt){
+            triedAlt = true;
+            tryLoad(altUrl);
+          } else {
+            loader.style.display='none';
+            blocked.style.display='flex';
+          }
+        }
+      }, 5000);
+      iframe.onload = () => { loaded = true; clearTimeout(guard); loader.style.display='none'; };
+    }
+    tryLoad(url);
+
+    // Bring to front on focus
+    win.addEventListener('mousedown', ()=> win.style.zIndex = ++zTop);
+
+    // Drag
+    let dragging=false, sx=0, sy=0, ox=0, oy=0;
+    titlebar.addEventListener('mousedown', e=>{
+      if(e.target.closest('.mw-toolbar')) return;
+      dragging=true; sx=e.clientX; sy=e.clientY;
+      const r=win.getBoundingClientRect(); ox=r.left; oy=r.top;
+      document.body.style.userSelect='none';
+    });
+    window.addEventListener('mousemove', e=>{
+      if(!dragging) return;
+      const nx = Math.min(window.innerWidth-80, Math.max(0, ox + (e.clientX - sx)));
+      const ny = Math.min(window.innerHeight-60, Math.max(0, oy + (e.clientY - sy)));
+      win.style.left = nx+'px'; win.style.top = ny+'px';
+    });
+    window.addEventListener('mouseup', ()=>{ dragging=false; document.body.style.userSelect=''; });
+
+    // Resize
+    const handle = win.querySelector('.mw-resize');
+    let resizing=false, rsx=0, rsy=0, rw=0, rh=0;
+    handle.addEventListener('mousedown', e=>{
+      e.stopPropagation(); resizing=true; rsx=e.clientX; rsy=e.clientY;
+      const r=win.getBoundingClientRect(); rw=r.width; rh=r.height;
+      document.body.style.userSelect='none';
+    });
+    window.addEventListener('mousemove', e=>{
+      if(!resizing) return;
+      const w=Math.min(window.innerWidth-20, Math.max(320, rw + (e.clientX - rsx)));
+      const h=Math.min(window.innerHeight-20, Math.max(210, rh + (e.clientY - rsy)));
+      win.style.width = w+'px'; win.style.height = h+'px';
+    });
+    window.addEventListener('mouseup', ()=>{ resizing=false; document.body.style.userSelect=''; });
+
+    // Toolbar
+    win.addEventListener('click', (e)=>{
+      const btn = e.target.closest('[data-action]');
+      if(!btn) return;
+      if(btn.getAttribute('data-action')==='close'){ win.remove(); }
+    });
+
+    miniContainer.appendChild(win);
+  }
+
+  function safeHost(u){ try{ return new URL(u).hostname; } catch { return u; } }
+
+  // Hook up all [data-mini] buttons (works for the section above or any future cards)
+  document.addEventListener('click', (e)=>{
+    const btn = e.target.closest('[data-mini]');
+    if(!btn) return;
+    const title = btn.getAttribute('data-title') || 'Preview';
+    const url   = btn.getAttribute('data-url');
+    const alt   = btn.getAttribute('data-alt');
+    if(url) openMini(title, url, alt);
+  });
+})();
+</script>
+
 
     <footer style="background: radial-gradient(circle at top left, #0a0a0a, #111); color: #fff; padding: 4rem 2rem 2rem; font-family: 'Space Grotesk', sans-serif;">
         <div style="display: flex; flex-wrap: wrap; justify-content: space-between; max-width: 1200px; margin: 0 auto; gap: 2rem;">
