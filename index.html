@@ -1138,23 +1138,93 @@ nav a:hover::after {
         </div>
     </section>
 
-    <section id="projects" class="section">
-        <h2 class="section-title">Research Projects</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>Time Travel & Wormholes</h3>
-                <p>Investigating theoretical concepts of spacetime manipulation and Einstein's field equations</p>
-            </div>
-            <div class="card">
-                <h3>White Holes</h3>
-                <p>Theoretical study of white holes as counterparts to black holes</p>
-            </div>
-            <div class="card">
-                <h3>Quantum Mechanics</h3>
-                <p>Advanced study of quantum principles through Feynman's approach</p>
-            </div>
+    <!-- ===== Projects (Mini Window Previews) ===== -->
+<section id="projects" class="px-6 md:px-10 pt-20 pb-24">
+  <div class="max-w-7xl mx-auto">
+    <header class="mb-8 text-center">
+      <h2 class="text-3xl md:text-5xl font-extrabold glow-text tracking-widest">PROJECTS</h2>
+      <p class="mt-3 text-cyan-200/80 max-w-2xl mx-auto">Open live previews in a floating futuristic window.</p>
+    </header>
+
+    <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+      <!-- Xploreon -->
+      <article class="group glass rounded-2xl overflow-hidden border border-cyan-300/20 hover:border-cyan-300/40 transition">
+        <div class="relative aspect-[16/9]">
+          <img src="https://xploreon.space/y.jpg?v=5" alt="Xploreon" class="w-full h-full object-cover opacity-90">
+          <div class="absolute bottom-2 left-2 flex items-center gap-2 text-xs text-white/90">
+            <img class="w-4 h-4" src="https://www.google.com/s2/favicons?domain=xploreon.space&sz=64" alt="">
+            <span>xploreon.space</span>
+          </div>
         </div>
-    </section>
+        <div class="p-5">
+          <h3 class="text-lg font-semibold">Xploreon — Home</h3>
+          <p class="text-sm text-cyan-100/80 mt-1">Igniting interstellar innovation.</p>
+          <div class="mt-4 flex items-center gap-3">
+            <button class="text-sm px-4 py-2 rounded-full border border-cyan-300/30 hover:border-cyan-300/60 hover:bg-white/5 transition"
+              data-mini
+              data-title="Xploreon"
+              data-url="https://xploreon.space">
+              Live Mini Window
+            </button>
+            <a class="futuristic-button text-sm" target="_blank" href="https://xploreon.space">Open Site</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- PredictCrypto -->
+      <article class="group glass rounded-2xl overflow-hidden border border-cyan-300/20 hover:border-cyan-300/40 transition">
+        <div class="relative aspect-[16/9]">
+          <img src="https://picsum.photos/seed/crypto/1200/675" alt="PredictCrypto" class="w-full h-full object-cover opacity-90">
+          <div class="absolute bottom-2 left-2 flex items-center gap-2 text-xs text-white/90">
+            <img class="w-4 h-4" src="https://www.google.com/s2/favicons?domain=predictcrypto.netlify.app&sz=64" alt="">
+            <span>predictcrypto.netlify.app</span>
+          </div>
+        </div>
+        <div class="p-5">
+          <h3 class="text-lg font-semibold">PredictCrypto</h3>
+          <p class="text-sm text-cyan-100/80 mt-1">Crypto prediction playground.</p>
+          <div class="mt-4 flex items-center gap-3">
+            <button class="text-sm px-4 py-2 rounded-full border border-cyan-300/30 hover:border-cyan-300/60 hover:bg-white/5 transition"
+              data-mini
+              data-title="PredictCrypto"
+              data-url="https://predictcrypto.netlify.app">
+              Live Mini Window
+            </button>
+            <a class="futuristic-button text-sm" target="_blank" href="https://predictcrypto.netlify.app">Open Site</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- MedCareHub (tries netlify, falls back to netify) -->
+      <article class="group glass rounded-2xl overflow-hidden border border-cyan-300/20 hover:border-cyan-300/40 transition">
+        <div class="relative aspect-[16/9]">
+          <img src="https://picsum.photos/seed/med/1200/675" alt="MedCareHub" class="w-full h-full object-cover opacity-90">
+          <div class="absolute bottom-2 left-2 flex items-center gap-2 text-xs text-white/90">
+            <img class="w-4 h-4" src="https://www.google.com/s2/favicons?domain=medcarehub.netlify.app&sz=64" alt="">
+            <span>medcarehub.netlify.app</span>
+          </div>
+        </div>
+        <div class="p-5">
+          <h3 class="text-lg font-semibold">MedCareHub</h3>
+          <p class="text-sm text-cyan-100/80 mt-1">Healthcare appointments & PWA.</p>
+          <div class="mt-4 flex items-center gap-3">
+            <button class="text-sm px-4 py-2 rounded-full border border-cyan-300/30 hover:border-cyan-300/60 hover:bg-white/5 transition"
+              data-mini
+              data-title="MedCareHub"
+              data-url="https://medcarehub.netlify.app"
+              data-alt="https://medcarehub.netify.app">
+              Live Mini Window
+            </button>
+            <a class="futuristic-button text-sm" target="_blank" href="https://medcarehub.netlify.app">Open Site</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Container the mini-windows will be appended to -->
+<div id="miniContainer"></div>
 
     <section id="blog" class="section">
         <h2 class="section-title">Blog</h2>
