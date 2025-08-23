@@ -1074,6 +1074,34 @@ nav a:hover::after {
 .mw-badge { font-size: 10px; padding: 3px 8px; border-radius: 999px; border: 1px solid rgba(0,255,224,.35); background: rgba(0,255,224,.06); color: #bbfff5; }
 
 /* Use your existing .glass style to skin the window; combine it in HTML */
+.mw-btn {
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  color: #fff;
+  background: transparent;
+  border: 2px solid #00ffe0;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.mw-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.4), transparent);
+  transition: left 0.5s;
+}
+
+.mw-btn:hover::before {
+  left: 100%;
+}
 
 </style>
 
@@ -1193,10 +1221,10 @@ nav a:hover::after {
       <p class="mt-3 text-cyan-200/80 max-w-2xl mx-auto">Open live previews in a floating futuristic window.</p>
     </header>
 
-    <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       <!-- Xploreon -->
       <article class="group glass rounded-2xl overflow-hidden border border-cyan-300/20 hover:border-cyan-300/40 transition">
-        <div class="relative aspect-[16/9]">
+        <div class="relative aspect-[4/3]">
           <img src="https://xploreon.space/y.jpg?v=5" alt="Xploreon" class="w-full h-full object-cover opacity-90">
           <div class="absolute bottom-2 left-2 flex items-center gap-2 text-xs text-white/90">
             <img class="w-4 h-4" src="https://www.google.com/s2/favicons?domain=xploreon.space&sz=64" alt="">
@@ -1220,7 +1248,7 @@ nav a:hover::after {
 
       <!-- PredictCrypto -->
       <article class="group glass rounded-2xl overflow-hidden border border-cyan-300/20 hover:border-cyan-300/40 transition">
-        <div class="relative aspect-[16/9]">
+        <div class="relative aspect-[4/3]">
           <img src="https://picsum.photos/seed/crypto/1200/675" alt="PredictCrypto" class="w-full h-full object-cover opacity-90">
           <div class="absolute bottom-2 left-2 flex items-center gap-2 text-xs text-white/90">
             <img class="w-4 h-4" src="https://www.google.com/s2/favicons?domain=predictcrypto.netlify.app&sz=64" alt="">
@@ -1244,7 +1272,7 @@ nav a:hover::after {
 
       <!-- MedCareHub (tries netlify, falls back to netify) -->
       <article class="group glass rounded-2xl overflow-hidden border border-cyan-300/20 hover:border-cyan-300/40 transition">
-        <div class="relative aspect-[16/9]">
+        <div class="relative aspect-[4/3]">
           <img src="https://picsum.photos/seed/med/1200/675" alt="MedCareHub" class="w-full h-full object-cover opacity-90">
           <div class="absolute bottom-2 left-2 flex items-center gap-2 text-xs text-white/90">
             <img class="w-4 h-4" src="https://www.google.com/s2/favicons?domain=medcarehub.netlify.app&sz=64" alt="">
@@ -1259,7 +1287,7 @@ nav a:hover::after {
               data-mini
               data-title="MedCareHub"
               data-url="https://medcarehub.netlify.app"
-              data-alt="https://medcarehub.netify.app">
+              
               Live Mini Window
             </button>
             <a class="futuristic-button text-sm" target="_blank" href="https://medcarehub.netlify.app">Open Site</a>
