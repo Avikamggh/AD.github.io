@@ -23,1086 +23,171 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js" defer></script> 
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-@keyframes slide {
-    0% {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-body {
-    font-family: 'Space Grotesk', sans-serif;
-    background-color: #0a0a0a;
-    color: #ffffff;
-    line-height: 1.6;
-    position: relative;
-}
-
-.noise {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVfk6JAAAACHRSTlMoACgQMyFA/xgpU5kAAACUSURBVDjLhZAxDoQwDARzgF+kpOMBr7iShp6vsP9/BtmxjVAQYqQUkVaz0q5P7kkCV5OQ7hduoTx5JawK2QQLN2/SSZkUYXIeqDWrYqP2F2b1LJNyqoF7c3FSBr2EOcmHPCnTPoLvKD4XKcuExwxzTUpWxwxTSSn7CLNPSlFHmDVWhj7CmEkZHmH8pOQ44v2k5NRv5AMP1wqr4mrzjwAAAABJRU5ErkJggg==');
-    opacity: 0.03;
-    z-index: 1;
-    pointer-events: none;
-}
-
-.hero {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Video background styling */
-.video-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-    opacity: 1.5;
-}
-
-/* Overlay for better text visibility */
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, rgba(0,0,0,0.7), rgba(26,26,26,0.7));
-    z-index: 0;
-}
-
-.hero-content {
-    text-align: center;
-    z-index: 2;
-    padding: 2rem;
-}
-
-.hero-title {
-    font-size: 8vw;
-    font-weight: 900;
-    background: linear-gradient(45deg, #ff3366, #00ffff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 1rem;
-}
-
-.hero-description {
-    font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.8);
-    margin-top: 1rem;
-    font-weight: 300;
-}
-
-/* Text reveal animation for subtitle */
-@keyframes revealText {
-    0% {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-/* Letter spacing animation */
-@keyframes letterSpacing {
-    0% {
-        letter-spacing: -5px;
-        opacity: 0;
-    }
-    50% {
-        opacity: 0.5;
-    }
-    100% {
-        letter-spacing: 1px;
-        opacity: 1;
-    }
-}
-
-/* Floating animation for subtitle */
-@keyframes float {
-    0% {
-        transform: translateY(0px) translateX(0px);
-    }
-    25% {
-        transform: translateY(-8px) translateX(5px);
-    }
-    50% {
-        transform: translateY(0px) translateX(10px);
-    }
-    75% {
-        transform: translateY(8px) translateX(5px);
-    }
-    100% {
-        transform: translateY(0px) translateX(0px);
-    }
-}
-
-/* Individual letter animations */
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes subtitleLoop {
-    0%, 100% {
-        opacity: 0;
-        letter-spacing: -5px;
-        transform: translateY(20px);
-    }
-    10%, 90% {
-        opacity: 1;
-        letter-spacing: 1px;
-        transform: translateY(0px);
-    }
-}
-
-.hero-subtitle {
-    font-size: 1.5rem;
-    color: #fff;
-    margin-bottom: 2rem;
-    position: relative;
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    animation: subtitleLoop 8s ease-in-out infinite, 
-               float 6s ease-in-out infinite;
-}
-
-/* Adding individual letter animations to subtitle */
-.hero-subtitle span {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.8s forwards;
-}
-
-.nav-toggle {
-    display: none;
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    z-index: 1001;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    border: none;
-    padding: 0.5rem;
-    font-size: 1.5rem;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 1.5rem;
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    transition: transform 0.3s ease;
-}
-
-nav a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.1rem;
-    position: relative;
-    padding: 0.5rem 1rem;
-}
-
-nav a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, #ff3366, #00ffff);
-    transition: width 0.3s ease;
-}
-
-nav a:hover::after {
-    width: 100%;
-}
-
-.section {
-    padding: 6rem 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.section-title {
-    font-size: 3rem;
-    margin-bottom: 3rem;
-    position: relative;
-    display: inline-block;
-}
-
-.section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, #ff3366, #00ffff);
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-.card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    padding: 2rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    animation: fadeIn 0.5s ease backwards;
-}
-
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    border-color: #ff3366;
-}
-
-.certificate-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    padding: 2rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    animation: fadeIn 0.5s ease backwards;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.certificate-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    border-color: #ff3366;
-}
-
-.certificate-image {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    transition: transform 0.3s ease;
-    object-fit: cover;
-    max-height: 300px;
-}
-
-.certificate-card:hover .certificate-image {
-    transform: scale(1.02);
-}
-
-.certificate-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #fff;
-    margin-top: 1rem;
-}
-
-.certificate-date {
-    color: #888;
-    font-size: 0.9rem;
-}
-
-.skill-bar {
-    width: 100%;
-    height: 6px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-    margin-top: 1rem;
-    overflow: hidden;
-}
-
-.skill-progress {
-    height: 100%;
-    background: linear-gradient(90deg, #ff3366, #00ffff);
-    border-radius: 3px;
-    transition: width 1.5s ease;
-}
-
-.contact-form {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.contact-form input,
-.contact-form textarea {
-    width: 100%;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    color: #fff;
-    font-family: inherit;
-}
-
-.contact-form button {
-    background: linear-gradient(90deg, #ff3366, #00ffff);
-    color: #fff;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: transform 0.3s ease;
-}
-
-.contact-form button:hover {
-    transform: scale(1.05);
-}
-
-.chatbot {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    background: rgba(0, 0, 0, 0.9);
-    color: white;
-    padding: 1rem;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    z-index: 1002;
-    font-size: 2rem;
-}
-
-.chatbot-popup {
-    position: fixed;
-    bottom: 10%;
-    right: 2%;
-    width: 300px;
-    background: rgba(0, 0, 0, 0.9);
-    color: white;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    z-index: 1001;
-    display: none;
-    flex-direction: column;
-    padding: 0.5rem;
-}
-
-.chatbot-popup header {
-    font-size: 1.5rem;
-}
-
-.chatbot-popup textarea {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: white;
-    padding: 0.5rem;
-    border-radius: 5px;
-    width: 100%;
-    resize: none;
-}
-
-.chatbot-popup button {
-    background: linear-gradient(90deg, #ff3366, #00ffff);
-    color: white;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.chatbot-popup button:hover {
-    transform: scale(1.05);
-}
-
-.about-container {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 4rem;
-    align-items: start;
-}
-
-.about-image {
-    text-align: center;
-}
-
-.about-photo {
-    width: 280px;
-    height: 350px;
-    object-fit: cover;
-    border-radius: 20px;
-    border: 3px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-    margin-bottom: 2rem;
-    transition: transform 0.3s ease;
-}
-
-.about-photo:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 45px rgba(255, 51, 102, 0.2);
-}
-
-.about-stats {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-}
-
-.stat-item {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    padding: 1rem;
-    text-align: center;
-    transition: transform 0.3s ease;
-}
-
-.stat-item:hover {
-    transform: translateY(-3px);
-    border-color: #ff3366;
-}
-
-.stat-number {
-    display: block;
-    font-size: 1.8rem;
-    font-weight: bold;
-    background: linear-gradient(45deg, #ff3366, #00ffff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.stat-label {
-    font-size: 0.9rem;
-    color: #ccc;
-}
-
-.about-content {
-    padding-left: 2rem;
-}
-
-.about-text h3 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    background: linear-gradient(45deg, #ff3366, #00ffff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.about-text p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: #ddd;
-    margin-bottom: 2rem;
-}
-
-.about-highlights {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.highlight-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s ease, border-color 0.3s ease;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+@keyframes slide { 0%{transform:translateX(-100%);opacity:0;}100%{transform:translateX(0);opacity:1;} }
+@keyframes fadeIn { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+
+body { font-family: 'Space Grotesk', sans-serif; background-color: #0a0a0a; color: #ffffff; line-height: 1.6; position: relative; }
+
+.noise { position: fixed; top:0; left:0; width:100%; height:100%; background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVfk6JAAAACHRSTlMoACgQMyFA/xgpU5kAAACUSURBVDjLhZAxDoQwDARzgF+kpOMBr7iShp6vsP9/BtmxjVAQYqQUkVaz0q5P7kkCV5OQ7hduoTx5JawK2QQLN2/SSZkUYXIeqDWrYqP2F2b1LJNyqoF7c3FSBr2EOcmHPCnTPoLvKD4XKcuExwxzTUpWxwxTSSn7CLNPSlFHmDVWhj7CmEkZHmH8pOQ44v2k5NRv5AMP1wqr4mrzjwAAAABJRU5ErkJggg=='); opacity: 0.03; z-index: 1; pointer-events: none; }
+
+.hero { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.video-bg { position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:-1; opacity:1.5; }
+.hero-overlay { position:absolute; inset:0; background: linear-gradient(45deg, rgba(0,0,0,0.7), rgba(26,26,26,0.7)); z-index:0; }
+.hero-content { text-align:center; z-index:2; padding:2rem; }
+.hero-title { font-size: 8vw; font-weight: 900; background: linear-gradient(45deg, #ff3366, #00ffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem; }
+.hero-description { font-size: 1.2rem; color: rgba(255,255,255,0.8); margin-top: 1rem; font-weight: 300; }
+
+@keyframes fadeInUp { to{opacity:1; transform:translateY(0);} }
+@keyframes subtitleLoop { 0%,100%{opacity:0; letter-spacing:-5px; transform:translateY(20px);} 10%,90%{opacity:1; letter-spacing:1px; transform:translateY(0);} }
+@keyframes float { 0%{transform:translateY(0) translateX(0);} 25%{transform:translateY(-8px) translateX(5px);} 50%{transform:translateY(0) translateX(10px);} 75%{transform:translateY(8px) translateX(5px);} 100%{transform:translateY(0) translateX(0);} }
+
+.hero-subtitle { font-size:1.5rem; color:#fff; margin-bottom:2rem; position:relative; display:inline-block; padding:.5rem 1rem; animation: subtitleLoop 8s ease-in-out infinite, float 6s ease-in-out infinite; }
+.hero-subtitle span { display:inline-block; opacity:0; transform:translateY(20px); animation: fadeInUp .8s forwards; }
+
+.nav-toggle { display:none; position:fixed; top:1rem; right:1rem; z-index:1001; background:rgba(0,0,0,.8); color:#fff; border:none; padding:.5rem; font-size:1.5rem; cursor:pointer; border-radius:5px; }
+nav { position:fixed; top:0; left:0; width:100%; padding:1.5rem; background: rgba(0,0,0,0.2); backdrop-filter: blur(10px); z-index:1000; display:flex; justify-content:center; gap:2rem; transition: transform .3s ease; }
+nav a { color:#fff; text-decoration:none; font-size:1.1rem; position:relative; padding:.5rem 1rem; }
+nav a::after { content:''; position:absolute; bottom:0; left:0; width:0; height:2px; background: linear-gradient(90deg, #ff3366, #00ffff); transition: width .3s ease; }
+nav a:hover::after { width:100%; }
+
+.section { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+.section-title { font-size:3rem; margin-bottom:3rem; position:relative; display:inline-block; }
+.section-title::after { content:''; position:absolute; bottom:-10px; left:0; width:100%; height:4px; background: linear-gradient(90deg, #ff3366, #00ffff); }
+
+.grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:2rem; }
+.card { background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:15px; padding:2rem; transition: transform .3s ease, box-shadow .3s ease; animation: fadeIn .5s ease backwards; }
+.card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0,0,0,.3); border-color:#ff3366; }
+
+.certificate-card{ background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:15px; padding:2rem; transition:.3s; animation: fadeIn .5s ease backwards; display:flex; flex-direction:column; gap:1rem; }
+.certificate-card:hover{ transform:translateY(-10px); box-shadow:0 10px 30px rgba(0,0,0,.3); border-color:#ff3366; }
+.certificate-image{ width:100%; height:auto; border-radius:10px; transition:.3s; object-fit:cover; max-height:300px; }
+.certificate-card:hover .certificate-image{ transform:scale(1.02); }
+.certificate-title{ font-size:1.5rem; font-weight:bold; color:#fff; margin-top:1rem; }
+.certificate-date{ color:#888; font-size:.9rem; }
+
+.skill-bar{ width:100%; height:6px; background:rgba(255,255,255,.1); border-radius:3px; margin-top:1rem; overflow:hidden; }
+.skill-progress{ height:100%; background: linear-gradient(90deg, #ff3366, #00ffff); border-radius:3px; transition: width 1.5s ease; }
+
+.contact-form{ max-width:600px; margin:0 auto; }
+.contact-form input, .contact-form textarea{ width:100%; padding:1rem; margin-bottom:1rem; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:8px; color:#fff; font-family:inherit; }
+.contact-form button{ background: linear-gradient(90deg, #ff3366, #00ffff); color:#fff; border:none; padding:1rem 2rem; border-radius:8px; cursor:pointer; font-weight:bold; transition: transform .3s ease; }
+.contact-form button:hover{ transform: scale(1.05); }
+
+.chatbot{ position:fixed; bottom:2rem; right:2rem; background:rgba(0,0,0,.9); color:#fff; padding:1rem; border-radius:50%; cursor:pointer; box-shadow:0 5px 15px rgba(0,0,0,.3); z-index:1002; font-size:2rem; }
+.chatbot-popup{ position:fixed; bottom:10%; right:2%; width:300px; background:rgba(0,0,0,.9); color:#fff; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,.3); z-index:1001; display:none; flex-direction:column; padding:.5rem; }
+.chatbot-popup header{ font-size:1.5rem; }
+.chatbot-popup textarea{ background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); color:#fff; padding:.5rem; border-radius:5px; width:100%; resize:none; }
+.chatbot-popup button{ background: linear-gradient(90deg, #ff3366, #00ffff); color:#fff; border:none; padding:.8rem 1.5rem; border-radius:5px; cursor:pointer; font-weight:bold; }
+.chatbot-popup button:hover{ transform: scale(1.05); }
+
+.about-container{ display:grid; grid-template-columns:1fr 2fr; gap:4rem; align-items:start; }
+.about-image{ text-align:center; }
+.about-photo{ width:280px; height:350px; object-fit:cover; border-radius:20px; border:3px solid rgba(255,255,255,.1); box-shadow:0 15px 35px rgba(0,0,0,.3); margin-bottom:2rem; transition:.3s; }
+.about-photo:hover{ transform: translateY(-5px); box-shadow:0 20px 45px rgba(255,51,102,.2); }
+.about-stats{ display:grid; grid-template-columns:1fr; gap:1rem; }
+.stat-item{ background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:1rem; text-align:center; transition:.3s; }
+.stat-item:hover{ transform: translateY(-3px); border-color:#ff3366; }
+.stat-number{ display:block; font-size:1.8rem; font-weight:bold; background: linear-gradient(45deg, #ff3366, #00ffff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.stat-label{ font-size:.9rem; color:#ccc; }
+.about-content{ padding-left:2rem; }
+.about-text h3{ font-size:2rem; margin-bottom:1.5rem; background: linear-gradient(45deg, #ff3366, #00ffff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.about-text p{ font-size:1.1rem; line-height:1.8; color:#ddd; margin-bottom:2rem; }
+.about-highlights{ display:flex; flex-direction:column; gap:1.5rem; }
+.highlight-item{ display:flex; align-items:flex-start; gap:1rem; padding:1.5rem; background: rgba(255,255,255,.03); border-radius:15px; border:1px solid rgba(255,255,255,.1); transition:.3s; }
+.highlight-item:hover{ transform: translateX(10px); border-color: rgba(255,51,102,.5); }
+.highlight-icon{ font-size:2rem; min-width:60px; text-align:center; }
+.highlight-item strong{ color:#fff; font-size:1.1rem; display:block; margin-bottom:.5rem; }
+.highlight-item p{ color:#ccc; margin:0; font-size:.95rem; }
+
+@media (max-width: 768px){
+  .hero-title{ font-size:3rem; }
+  .hero-subtitle{ font-size:1.2rem; }
+  .hero-description{ font-size:1rem; }
+  .section-title{ font-size:2rem; }
+  .nav-toggle{ display:block; }
+  nav{ position:fixed; top:0; left:0; width:100%; height:100vh; flex-direction:column; align-items:center; justify-content:flex-start; background:rgba(0,0,0,.95); transform:translateX(-100%); transition:.3s; overflow-y:auto; overflow-x:hidden; padding:4rem 0; }
+  nav.active{ transform:translateX(0); }
+  nav a{ font-size:1.2rem; padding:1rem; width:100%; text-align:center; }
+  .grid{ grid-template-columns:1fr; }
+  .section{ padding:4rem 1rem; }
+  .about-container{ grid-template-columns:1fr; gap:2rem; }
+  .about-content{ padding-left:0; }
+  .about-photo{ width:250px; height:300px; }
+
+  .quiz-selector{ flex-direction:column; align-items:center; }
+  .quiz-dropdown{ width:90%; }
+  .quiz-btn{ width:90%; }
+  .quiz-container iframe{ height:600px; }
+
+  .social-icons{ flex-direction:column; align-items:center; gap:1.5rem; }
+  .social-icon{ width:90%; }
+}
 
-.highlight-item:hover {
-    transform: translateX(10px);
-    border-color: rgba(255, 51, 102, 0.5);
+.social-icons{ display:flex; justify-content:center; gap:2rem; margin-top:2rem; }
+.social-icon{ display:flex; flex-direction:column; align-items:center; text-decoration:none; color:#fff; padding:1.5rem; border-radius:15px; transition:.3s; background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); }
+.social-icon:hover{ transform: translateY(-10px); box-shadow:0 10px 30px rgba(0,0,0,.3); }
+.social-icon.youtube:hover{ border-color:#F00; background: rgba(255,0,0,.1); }
+.social-icon.linkedin:hover{ border-color:#0077B5; background: rgba(0,119,181,.1); }
+.social-logo{ width:50px; height:50px; margin-bottom:1rem; object-fit:contain; }
+.social-icon span{ font-weight:bold; }
+
+.quiz-intro{ text-align:center; margin-bottom:2rem; }
+.quiz-selector{ display:flex; justify-content:center; gap:1rem; margin-bottom:2rem; }
+.quiz-dropdown{ padding:.8rem 1.5rem; border-radius:8px; background: rgba(26,26,26,.8); border:1px solid rgba(255,255,255,.1); color:#fff; font-family:inherit; cursor:pointer; min-width:250px; }
+.quiz-btn{ background: linear-gradient(90deg, #ff3366, #00ffff); color:#fff; border:none; padding:.8rem 1.5rem; border-radius:8px; cursor:pointer; font-weight:bold; transition:.3s; }
+.quiz-btn:hover{ transform: scale(1.05); }
+.quiz-container{ width:100%; min-height:500px; margin:0 auto; background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:15px; overflow:hidden; transition:.3s; }
+.quiz-container iframe{ width:100%; height:700px; border:none; }
+.quiz-placeholder{ display:flex; justify-content:center; align-items:center; height:300px; color:rgba(255,255,255,.7); font-size:1.2rem; }
+.quiz-loading{ display:flex; justify-content:center; align-items:center; height:300px; }
+.quiz-loading::after{ content:''; width:50px; height:50px; border:5px solid rgba(255,255,255,.1); border-radius:50%; border-top-color:#ff3366; animation: spin 1s ease-in-out infinite; }
+@keyframes spin{ to{ transform:rotate(360deg); } }
+
+.product-card{ background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:15px; padding:2rem; transition:.3s; animation: fadeIn .5s ease backwards; display:flex; flex-direction:column; gap:1rem; }
+.product-card:hover{ transform: translateY(-10px); box-shadow:0 10px 30px rgba(0,0,0,.3); border-color:#ff3366; }
+.product-video-container{ position:relative; width:100%; height:200px; border-radius:10px; overflow:hidden; cursor:pointer; transition:.3s; }
+.product-video{ width:100%; height:100%; object-fit:cover; border-radius:10px; transition:.3s; }
+.product-card:hover .product-video-container{ transform: scale(1.02); }
+.video-play-btn{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:50px; height:50px; background:rgba(0,0,0,.6); border-radius:50%; color:#fff; display:flex; align-items:center; justify-content:center; font-size:20px; opacity:.8; transition:.3s; z-index:2; }
+.product-video-container:hover .video-play-btn{ opacity:1; transform:translate(-50%,-50%) scale(1.1); background: rgba(255,51,102,.8); }
+
+.product-title{ font-size:1.5rem; font-weight:bold; color:#fff; margin-top:.5rem; }
+.product-description{ color:#ddd; margin-bottom:1rem; }
+.product-price{ font-size:1.5rem; font-weight:bold; color:#00ffff; margin:.5rem 0; }
+.product-button{ background: linear-gradient(90deg, #ff3366, #00ffff); color:#fff; text-decoration:none; padding:.8rem 1.5rem; border-radius:8px; text-align:center; font-weight:bold; transition:.3s; margin-top:auto; display:inline-block; }
+.product-button:hover{ transform: scale(1.05); }
+
+.video-modal{ position:fixed; inset:0; background:rgba(0,0,0,.9); display:flex; align-items:center; justify-content:center; z-index:9999; opacity:0; visibility:hidden; transition:.3s; }
+.video-modal.active{ opacity:1; visibility:visible; }
+.video-modal-content{ width:80%; max-width:800px; position:relative; }
+.video-modal video{ width:100%; border-radius:10px; }
+.close-modal{ position:absolute; top:-40px; right:0; color:#fff; font-size:30px; cursor:pointer; background:none; border:none; padding:0; }
+
+/* ---------- New: Compact live preview cards ---------- */
+.glass { background: rgba(255,255,255,0.04); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); }
+.preview-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.preview-card{ background: rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:14px; overflow:hidden; transition:.25s; }
+.preview-card:hover{ transform: translateY(-4px); border-color: rgba(0,255,224,.35); box-shadow: 0 8px 28px rgba(0,0,0,.35); }
+.preview-head{ display:flex; align-items:center; justify-content:space-between; gap:8px; padding:10px 12px; background: rgba(0,0,0,.35); border-bottom:1px solid rgba(255,255,255,.08); }
+.preview-title{ font-weight:700; font-size:14px; letter-spacing:.2px; display:flex; align-items:center; gap:8px; }
+.preview-host{ color:#9ff9f1; font-size:11px; opacity:.9; }
+.preview-actions{ display:flex; gap:8px; }
+.preview-btn{ font-size:11px; padding:6px 10px; border-radius:999px; border:1px solid rgba(0,255,224,.35); background: rgba(0,255,224,.08); color:#dffffa; cursor:pointer; }
+.preview-btn:hover{ background: rgba(0,255,224,.18); }
+.preview-frame-wrap{ position:relative; width:100%; height:160px; overflow:hidden; background:#000; }
+.preview-frame{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+.preview-fallback{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:16px; color:#c9fffb; font-size:12px; background: rgba(0,10,12,.6); border-top:1px dashed rgba(0,255,224,.25); }
+.preview-footer{ padding:10px 12px; font-size:12px; color:#bfe9ff; display:flex; align-items:center; justify-content:space-between; }
+.preview-expand{ font-size:11px; opacity:.9; cursor:pointer; }
+.preview-card.expanded .preview-frame-wrap{ height:280px; }
+
+/* Smaller on very narrow phones */
+@media (max-width:420px){
+  .preview-frame-wrap{ height:140px; }
+  .preview-card.expanded .preview-frame-wrap{ height:220px; }
 }
-
-.highlight-icon {
-    font-size: 2rem;
-    min-width: 60px;
-    text-align: center;
-}
-
-.highlight-item strong {
-    color: #fff;
-    font-size: 1.1rem;
-    display: block;
-    margin-bottom: 0.5rem;
-}
-
-.highlight-item p {
-    color: #ccc;
-    margin: 0;
-    font-size: 0.95rem;
-}
-
-@media (max-width: 768px) {
-    .hero-title {
-        font-size: 3rem;
-    }
-
-    .hero-subtitle {
-        font-size: 1.2rem;
-    }
-
-    .hero-description {
-        font-size: 1rem;
-    }
-
-    .section-title {
-        font-size: 2rem;
-    }
-
-    .nav-toggle {
-        display: block;
-    }
-
-    nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        background: rgba(0, 0, 0, 0.95);
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-        overflow-y: auto; 
-        overflow-x: hidden;
-        padding-top: 4rem;
-        padding-bottom: 4rem;
-    }
-
-    nav.active {
-        transform: translateX(0);
-    }
-
-    nav a {
-        font-size: 1.2rem;
-        padding: 1rem;
-        width: 100%;
-        text-align: center;
-    }
-
-    .grid {
-        grid-template-columns: 1fr;
-    }
-
-    .section {
-        padding: 4rem 1rem;
-    }
-
-    .about-container {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    
-    .about-content {
-        padding-left: 0;
-    }
-    
-    .about-photo {
-        width: 250px;
-        height: 300px;
-    }
-
-    .quiz-selector {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .quiz-dropdown {
-        width: 90%;
-    }
-    
-    .quiz-btn {
-        width: 90%;
-    }
-    
-    .quiz-container iframe {
-        height: 600px;
-    }
-    
-    .social-icons {
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
-    }
-
-    .social-icon {
-        width: 90%;
-    }
-}
-
-.social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.social-icon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    color: #fff;
-    padding: 1.5rem;
-    border-radius: 15px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.social-icon:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.social-icon.youtube:hover {
-    border-color: #FF0000;
-    background: rgba(255, 0, 0, 0.1);
-}
-
-.social-icon.linkedin:hover {
-    border-color: #0077B5;
-    background: rgba(0, 119, 181, 0.1);
-}
-
-.social-logo {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 1rem;
-    object-fit: contain;
-}
-
-.social-icon span {
-    font-weight: bold;
-}
-
-.quiz-intro {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.quiz-selector {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-}
-
-.quiz-dropdown {
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    background: rgba(26, 26, 26, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #fff;
-    font-family: inherit;
-    cursor: pointer;
-    min-width: 250px;
-}
-
-.quiz-btn {
-    background: linear-gradient(90deg, #ff3366, #00ffff);
-    color: #fff;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: transform 0.3s ease;
-}
-
-.quiz-btn:hover {
-    transform: scale(1.05);
-}
-
-.quiz-container {
-    width: 100%;
-    min-height: 500px;
-    margin: 0 auto;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.quiz-container iframe {
-    width: 100%;
-    height: 700px;
-    border: none;
-}
-
-.quiz-placeholder {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 300px;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 1.2rem;
-}
-
-.quiz-loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 300px;
-}
-
-.quiz-loading::after {
-    content: '';
-    width: 50px;
-    height: 50px;
-    border: 5px solid rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    border-top-color: #ff3366;
-    animation: spin 1s ease-in-out infinite;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-@media (max-width: 768px) {
-    .quiz-selector {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .quiz-dropdown {
-        width: 90%;
-    }
-    
-    .quiz-btn {
-        width: 90%;
-    }
-    
-    .quiz-container iframe {
-        height: 600px;
-    }
-    
-    .social-icons {
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
-    }
-
-    .social-icon {
-        width: 90%;
-    }
-}    
-
-.product-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    padding: 2rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    animation: fadeIn 0.5s ease backwards;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.product-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    border-color: #ff3366;
-}
-
-.product-video-container {
-    position: relative;
-    width: 100%;
-    height: 200px;
-    border-radius: 10px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.product-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-    transition: transform 0.3s ease;
-}
-
-.product-card:hover .product-video-container {
-    transform: scale(1.02);
-}
-
-.video-play-btn {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50px;
-    height: 50px;
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 50%;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    opacity: 0.8;
-    transition: opacity 0.3s, transform 0.3s;
-    z-index: 2;
-}
-
-.product-video-container:hover .video-play-btn {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.1);
-    background: rgba(255, 51, 102, 0.8);
-}
-
-.product-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #fff;
-    margin-top: 0.5rem;
-}
-
-.product-description {
-    color: #ddd;
-    margin-bottom: 1rem;
-}
-
-.product-price {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #00ffff;
-    margin: 0.5rem 0;
-}
-
-.product-button {
-    background: linear-gradient(90deg, #ff3366, #00ffff);
-    color: #fff;
-    text-decoration: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    text-align: center;
-    font-weight: bold;
-    transition: transform 0.3s ease;
-    margin-top: auto;
-    display: inline-block;
-}
-
-.product-button:hover {
-    transform: scale(1.05);
-}
-
-/* Style for video modal */
-.video-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.video-modal.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.video-modal-content {
-    width: 80%;
-    max-width: 800px;
-    position: relative;
-}
-
-.video-modal video {
-    width: 100%;
-    border-radius: 10px;
-}
-
-.close-modal {
-    position: absolute;
-    top: -40px;
-    right: 0;
-    color: white;
-    font-size: 30px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 0;
-}
-
-.blog-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    padding: 2rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    animation: fadeIn 0.5s ease backwards;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.blog-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    border-color: #ff3366;
-}
-
-.blog-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #fff;
-}
-
-.blog-excerpt {
-    color: #ddd;
-    margin-bottom: 1rem;
-}
-
-.blog-link {
-    background: linear-gradient(90deg, #ff3366, #00ffff);
-    color: #fff;
-    text-decoration: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    text-align: center;
-    font-weight: bold;
-    transition: transform 0.3s ease;
-    margin-top: auto;
-    display: inline-block;
-}
-
-.blog-link:hover {
-    transform: scale(1.05);
-}
-    /* ===== Mini Window (scoped with mw- prefix to avoid conflicts) ===== */
-.mw-miniwin {
-  position: fixed;
-  width: 460px; height: 280px; min-width: 320px; min-height: 210px;
-  max-width: 90vw; max-height: 85vh;
-  border-radius: 16px; overflow: hidden; z-index: 4000;
-}
-.mw-titlebar {
-  cursor: move; user-select: none; padding: 8px 10px;
-  display: flex; align-items: center; gap: 10px;
-  background: rgba(0,20,30,0.45);
-  border-bottom: 1px solid rgba(0,255,224,0.25);
-}
-.mw-dots { display: flex; gap: 6px; }
-.mw-dot { width: 10px; height: 10px; border-radius: 999px; }
-.mw-dot.red { background: #ff5f57; } .mw-dot.yellow { background: #fdbc2e; } .mw-dot.green { background: #28c840; }
-
-.mw-iframe { width: 100%; height: calc(100% - 42px); background: #000; border: 0; }
-
-.mw-toolbar { margin-left: auto; display: flex; gap: 8px; }
-.mw-tool {
-  font-size: 12px; padding: 6px 10px; border-radius: 999px;
-  border: 1px solid rgba(0,255,224,0.35); background: rgba(0,255,224,0.08); color: #dffffa;
-}
-.mw-tool:hover { background: rgba(0,255,224,0.16); }
-
-.mw-resize { position: absolute; right: 4px; bottom: 4px; width: 16px; height: 16px;
-  border-right: 2px solid rgba(0,255,224,0.5);
-  border-bottom: 2px solid rgba(0,255,224,0.5);
-  cursor: nwse-resize; opacity: .9;
-}
-
-/* Loader + blocked states (uses your glass aesthetic) */
-.mw-loader { position: absolute; inset: 42px 0 0 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
-.mw-spinner {
-  border: 6px solid rgba(255,255,255,.1);
-  border-top: 6px solid #00ffe0; border-radius: 50%;
-  width: 44px; height: 44px; animation: mw-spin 1s linear infinite;
-  box-shadow: 0 0 12px rgba(0,255,224,.35), 0 0 32px rgba(0,255,224,.18);
-}
-@keyframes mw-spin { to { transform: rotate(360deg); } }
-
-.mw-blocked { position: absolute; inset: 42px 0 0 0; display: none; align-items: center; justify-content: center; text-align: center; padding: 18px; }
-.mw-badge { font-size: 10px; padding: 3px 8px; border-radius: 999px; border: 1px solid rgba(0,255,224,.35); background: rgba(0,255,224,.06); color: #bbfff5; }
-
-/* Use your existing .glass style to skin the window; combine it in HTML */
-.mw-btn {
-  padding: 6px 14px;
-  font-size: 12px;
-  font-weight: 600;
-  border-radius: 6px;
-  color: #fff;
-  background: transparent;
-  border: 2px solid #00ffe0;
-  position: relative;
-  cursor: pointer;
-  overflow: hidden;
-  transition: 0.3s;
-}
-
-.mw-btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.4), transparent);
-  transition: left 0.5s;
-}
-
-.mw-btn:hover::before {
-  left: 100%;
-}
-
 </style>
 
 </head>
@@ -1124,14 +209,10 @@ nav a:hover::after {
     </nav>
 
     <div class="hero">
-        <!-- Video background -->
         <video class="video-bg" autoplay loop muted playsinline>
             <source src="227152_medium.mp4" type="video/mp4">
         </video>
-        
-        <!-- Overlay for better text visibility -->
         <div class="hero-overlay"></div>
-        
         <div class="hero-content">
             <h1 class="hero-title">Avikam Deol</h1>
             <p class="hero-subtitle" id="hero-subtitle">Founder & CEO at Xploreon</p>
@@ -1153,7 +234,6 @@ nav a:hover::after {
                         <span class="stat-number">100+</span>
                         <span class="stat-label">Certifications</span>
                     </div>
-                    
                 </div>
             </div>
             <div class="about-content">
@@ -1194,112 +274,100 @@ nav a:hover::after {
         <div class="grid">
             <div class="card">
                 <h3>Physics Concepts</h3>
-                <div class="skill-bar">
-                    <div class="skill-progress" style="width: 40%"></div>
-                </div>
+                <div class="skill-bar"><div class="skill-progress" style="width: 40%"></div></div>
             </div>
             <div class="card">
                 <h3>Quantum Mechanics</h3>
-                <div class="skill-bar">
-                    <div class="skill-progress" style="width: 20%"></div>
-                </div>
+                <div class="skill-bar"><div class="skill-progress" style="width: 20%"></div></div>
             </div>
             <div class="card">
                 <h3>Mathematics</h3>
-                <div class="skill-bar">
-                    <div class="skill-progress" style="width: 60%"></div>
-                </div>
+                <div class="skill-bar"><div class="skill-progress" style="width: 60%"></div></div>
             </div>
         </div>
     </section>
 
-    <!-- ===== Projects (Mini Window Previews) ===== -->
-<section id="projects" class="px-6 md:px-10 pt-20 pb-24">
-  <div class="max-w-7xl mx-auto">
-    <header class="mb-8 text-center">
-      <h2 class="text-3xl md:text-5xl font-extrabold glow-text tracking-widest">PROJECTS</h2>
-      <p class="mt-3 text-cyan-200/80 max-w-2xl mx-auto">Open live previews in a floating futuristic window.</p>
-    </header>
+    <!-- ========== UPDATED PROJECTS: live mini previews visible by default ========== -->
+    <section id="projects" class="section">
+      <h2 class="section-title">Projects</h2>
 
-    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      <!-- Xploreon -->
-      <article class="group glass rounded-2xl overflow-hidden border border-cyan-300/20 hover:border-cyan-300/40 transition">
-        <div class="relative aspect-[4/3]">
-          <img src="" alt="Xploreon" class="w-full h-full object-cover opacity-90">
-          <div class="absolute bottom-2 left-2 flex items-center gap-2 text-xs text-white/90">
-            <img class="w-4 h-4" src="" alt="">
-            <span>xploreon.space</span>
-          </div>
-        </div>
-        <div class="p-5">
-          <h3 class="text-lg font-semibold">Xploreon — Home</h3>
-          <p class="text-sm text-cyan-100/80 mt-1">Igniting interstellar innovation.</p>
-          <div class="mt-4 flex items-center gap-3">
-            <button class="text-sm px-4 py-2 rounded-full border border-cyan-300/30 hover:border-cyan-300/60 hover:bg-white/5 transition"
-              data-mini
-              data-title="Xploreon"
-              data-url="https://xploreon.space">
-              Live Mini Window
-            </button>
-            <a class="futuristic-button text-sm" target="_blank" href="https://xploreon.space">Open Site</a>
-          </div>
-        </div>
-      </article>
+      <div class="preview-grid">
 
-      <!-- PredictCrypto -->
-      <article class="group glass rounded-2xl overflow-hidden border border-cyan-300/20 hover:border-cyan-300/40 transition">
-        <div class="relative aspect-[4/3]">
-          <img src="" alt="PredictCrypto" class="w-full h-full object-cover opacity-90">
-          <div class="absolute bottom-2 left-2 flex items-center gap-2 text-xs text-white/90">
-            <img class="w-4 h-4" src="" alt="">
-            <span>predictcrypto.netlify.app</span>
+        <!-- Xploreon -->
+        <article class="preview-card glass" data-url="https://xploreon.space">
+          <div class="preview-head">
+            <div class="preview-title">Xploreon — Home <span class="preview-host">xploreon.space</span></div>
+            <div class="preview-actions">
+              <a class="preview-btn" href="https://xploreon.space" target="_blank" rel="noopener">Open Site</a>
+              <button class="preview-btn preview-expand" type="button">Expand</button>
+            </div>
           </div>
-        </div>
-        <div class="p-5">
-          <h3 class="text-lg font-semibold">PredictCrypto</h3>
-          <p class="text-sm text-cyan-100/80 mt-1">Crypto prediction playground.</p>
-          <div class="mt-4 flex items-center gap-3">
-            <button class="text-sm px-4 py-2 rounded-full border border-cyan-300/30 hover:border-cyan-300/60 hover:bg-white/5 transition"
-              data-mini
-              data-title="PredictCrypto"
-              data-url="https://predictcrypto.netlify.app">
-              Live Mini Window
-            </button>
-            <a class="futuristic-button text-sm" target="_blank" href="https://predictcrypto.netlify.app">Open Site</a>
+          <div class="preview-frame-wrap">
+            <iframe class="preview-frame" referrerpolicy="no-referrer" sandbox="allow-scripts allow-forms allow-same-origin allow-pointer-lock allow-downloads"></iframe>
+            <div class="preview-fallback" hidden>
+              <div>
+                <strong>Preview blocked by site headers</strong><br>
+                Click “Open Site” to view in a new tab.
+              </div>
+            </div>
           </div>
-        </div>
-      </article>
+          <div class="preview-footer">
+            <span>Igniting interstellar innovation.</span>
+            <span style="opacity:.7;">Mini preview</span>
+          </div>
+        </article>
 
-      <!-- MedCareHub (tries netlify, falls back to netify) -->
-      <article class="group glass rounded-2xl overflow-hidden border border-cyan-300/20 hover:border-cyan-300/40 transition">
-        <div class="relative aspect-[4/3]">
-          <img src="" alt="MedCareHub" class="w-full h-full object-cover opacity-90">
-          <div class="absolute bottom-2 left-2 flex items-center gap-2 text-xs text-white/90">
-            <img class="w-4 h-4" src="" alt="">
-            <span>medcarehub.netlify.app</span>
+        <!-- PredictCrypto -->
+        <article class="preview-card glass" data-url="https://predictcrypto.netlify.app">
+          <div class="preview-head">
+            <div class="preview-title">PredictCrypto <span class="preview-host">predictcrypto.netlify.app</span></div>
+            <div class="preview-actions">
+              <a class="preview-btn" href="https://predictcrypto.netlify.app" target="_blank" rel="noopener">Open Site</a>
+              <button class="preview-btn preview-expand" type="button">Expand</button>
+            </div>
           </div>
-        </div>
-        <div class="p-5">
-          <h3 class="text-lg font-semibold">MedCareHub</h3>
-          <p class="text-sm text-cyan-100/80 mt-1">Healthcare appointments & PWA.</p>
-          <div class="mt-4 flex items-center gap-3">
-            <button class="text-sm px-4 py-2 rounded-full border border-cyan-300/30 hover:border-cyan-300/60 hover:bg-white/5 transition"
-              data-mini
-              data-title="MedCareHub"
-              data-url="https://medcarehub.netlify.app"
-              
-              Live Mini Window
-            </button>
-            <a class="futuristic-button text-sm" target="_blank" href="https://medcarehub.netlify.app">Open Site</a>
+          <div class="preview-frame-wrap">
+            <iframe class="preview-frame" referrerpolicy="no-referrer" sandbox="allow-scripts allow-forms allow-same-origin allow-pointer-lock allow-downloads"></iframe>
+            <div class="preview-fallback" hidden>
+              <div>
+                <strong>Preview blocked by site headers</strong><br>
+                Click “Open Site” to view in a new tab.
+              </div>
+            </div>
           </div>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
+          <div class="preview-footer">
+            <span>Crypto prediction playground.</span>
+            <span style="opacity:.7;">Mini preview</span>
+          </div>
+        </article>
 
-<!-- Container the mini-windows will be appended to -->
-<div id="miniContainer"></div>
+        <!-- MedCareHub (tries netlify, falls back to netify) -->
+        <article class="preview-card glass" data-url="https://medcarehub.netlify.app" data-alt="https://medcarehub.netify.app">
+          <div class="preview-head">
+            <div class="preview-title">MedCareHub <span class="preview-host">medcarehub.netlify.app</span></div>
+            <div class="preview-actions">
+              <a class="preview-btn" href="https://medcarehub.netlify.app" target="_blank" rel="noopener">Open Site</a>
+              <button class="preview-btn preview-expand" type="button">Expand</button>
+            </div>
+          </div>
+          <div class="preview-frame-wrap">
+            <iframe class="preview-frame" referrerpolicy="no-referrer" sandbox="allow-scripts allow-forms allow-same-origin allow-pointer-lock allow-downloads"></iframe>
+            <div class="preview-fallback" hidden>
+              <div>
+                <strong>Preview blocked by site headers</strong><br>
+                Click “Open Site” to view in a new tab.
+              </div>
+            </div>
+          </div>
+          <div class="preview-footer">
+            <span>Healthcare appointments & PWA.</span>
+            <span style="opacity:.7;">Mini preview</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+    <!-- ========== /UPDATED PROJECTS ========== -->
 
     <section id="blog" class="section">
         <h2 class="section-title">Blog</h2>
@@ -1354,15 +422,9 @@ nav a:hover::after {
     <section id="goals" class="section">
         <h2 class="section-title">Goals</h2>
         <div class="grid">
-            <div class="card">
-                <p>• Pursue higher education in physics at a leading institution such as the University of Cambridge.</p>
-            </div>
-            <div class="card">
-                <p>• Conduct groundbreaking research in quantum mechanics, relativity, and cosmology.</p>
-            </div>
-            <div class="card">
-                <p>• Join esteemed organizations such as the Royal Society of Physics and contribute to advancing scientific understanding.</p>
-            </div>
+            <div class="card"><p>• Pursue higher education in physics at a leading institution such as the University of Cambridge.</p></div>
+            <div class="card"><p>• Conduct groundbreaking research in quantum mechanics, relativity, and cosmology.</p></div>
+            <div class="card"><p>• Join esteemed organizations such as the Royal Society of Physics and contribute to advancing scientific understanding.</p></div>
         </div>
     </section>
 
@@ -1371,62 +433,47 @@ nav a:hover::after {
         <div class="grid">
             <div class="certificate-card">
                 <a href="chat gpt.png" data-lightbox="certificates" data-title="ChatGPT Verification">
-                <img src="chat gpt.png" alt="ChatGPT Certificate" class="certificate-image">
-                </a>
+                <img src="chat gpt.png" alt="ChatGPT Certificate" class="certificate-image"></a>
                 <h3 class="certificate-title">ChatGPT Verification</h3>
                 <p>Successfully verified expertise with ChatGPT and demonstrated proficiency in AI interaction.</p>
                 <p class="certificate-date">Published: January 19, 2025</p>
-                <div class="skill-bar">
-                    <div class="skill-progress" style="width: 100%"></div>
-                </div>
+                <div class="skill-bar"><div class="skill-progress" style="width: 100%"></div></div>
             </div>
 
             <div class="certificate-card">
                 <a href="0.jpg" data-lightbox="certificates" data-title="PowerBI Workshop">
-                <img src="0.jpg" alt="PowerBI Certificate" class="certificate-image">
-                </a>
+                <img src="0.jpg" alt="PowerBI Certificate" class="certificate-image"></a>
                 <h3 class="certificate-title">PowerBI Workshop</h3>
                 <p>Completed comprehensive training in creating AI-Powered interactive dashboards using PowerBI.</p>
                 <p class="certificate-date">Published: January 19, 2025</p>
-                <div class="skill-bar">
-                    <div class="skill-progress" style="width: 100%"></div>
-                </div>
+                <div class="skill-bar"><div class="skill-progress" style="width: 100%"></div></div>
             </div>
 
             <div class="certificate-card">
                 <a href="isro.jpeg" data-lightbox="certificates" data-title="ISRO Workshop">
-                <img src="isro.jpeg" alt="ISRO" class="certificate-image">
-                </a>
+                <img src="isro.jpeg" alt="ISRO" class="certificate-image"></a>
                 <h3 class="certificate-title">ISRO Young Scientist Program</h3>
                 <p>Thrilled to be chosen for a prestigious 15-day space science training program at the (ISRO).</p>
                 <p class="certificate-date">Published: January 20, 2025</p>
-                <div class="skill-bar">
-                    <div class="skill-progress" style="width: 100%"></div>
-                </div>
+                <div class="skill-bar"><div class="skill-progress" style="width: 100%"></div></div>
             </div>
 
             <div class="certificate-card">
                 <a href="ai certificate.jpg" data-lightbox="certificates" data-title="Artificial Intelligence Workshop">
-                <img src="ai certificate.jpg" alt="freedom with ai" class="certificate-image">
-                </a>
+                <img src="ai certificate.jpg" alt="freedom with ai" class="certificate-image"></a>
                 <h3 class="certificate-title">Artificial Intelligence Workshop</h3>
                 <p>Unlocking human potential through responsible AI innovation.</p>
                 <p class="certificate-date">Published: March 6, 2025</p>
-                <div class="skill-bar">
-                    <div class="skill-progress" style="width: 100%"></div>
-                </div>
+                <div class="skill-bar"><div class="skill-progress" style="width: 100%"></div></div>
             </div>         
             
             <div class="certificate-card">
                  <a href="cybersecurity.jpg" data-lightbox="certificates" data-title="Introduction To Cybersecurity">
-                <img src="cybersecurity.jpg" alt="cybersecurity" class="certificate-image">
-                </a>
+                <img src="cybersecurity.jpg" alt="cybersecurity" class="certificate-image"></a>
                 <h3 class="certificate-title">Introduction To Cybersecurity</h3>
                 <p>Cybersecurity is the practice of protecting systems, networks, and programs from digital attacks, unauthorized access, and data theft.</p>
                 <p class="certificate-date">Published: March 6, 2025</p>
-                <div class="skill-bar">
-                    <div class="skill-progress" style="width: 100%"></div>
-                </div>
+                <div class="skill-bar"><div class="skill-progress" style="width: 100%"></div></div>
             </div>     
         </div>
     </section>
@@ -1450,7 +497,6 @@ nav a:hover::after {
         </div>
     </section>
 
-    
     <section id="social" class="section">
         <h2 class="section-title">Connect With Me</h2>
         <div class="social-icons">
@@ -1462,17 +508,14 @@ nav a:hover::after {
                 <img src="whatsapp-logo.png" alt="WhatsApp" class="social-logo">
                 <span>WhatsApp Community</span>
             </a>
-
             <a href="https://www.instagram.com/xploreon_/" target="_blank" class="social-icon Instagram">
                 <img src="insta.jpeg" alt="Instagram" class="social-logo">
                 <span>Instagram Account</span>
             </a>
-       
             <a href="https://x.com/XploreonXn" target="_blank" class="social-icon Twitter">
                 <img src="twitter.jpg" alt="Twitter" class="social-logo">
                 <span>Twitter Account</span>
             </a>
-
             <a href="https://www.linkedin.com/in/avikam-deol-3a2105364/" target="_blank" class="social-icon linkedin">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" class="social-logo">
                 <span>LinkedIn Profile</span>
@@ -1482,11 +525,9 @@ nav a:hover::after {
 
     <section id="quizzes" class="section">
         <h2 class="section-title">Physics Quizzes</h2>
-        
         <div class="quiz-intro">
             <p>Test your physics knowledge with these interactive quizzes. Select a topic below and challenge yourself! If you get all answers correct, you'll win and be able to meet me.</p>
         </div>
-        
         <div class="quiz-selector">
             <select id="quiz-dropdown" class="quiz-dropdown">
                 <option value="">Select a Physics Quiz</option>
@@ -1501,9 +542,7 @@ nav a:hover::after {
             </select>
             <button id="load-quiz-btn" class="quiz-btn">Load Quiz</button>
         </div>
-        
         <div id="quiz-container" class="quiz-container">
-            <!-- Quiz iframe will be loaded here -->
             <div class="quiz-placeholder">
                 <p>Select a quiz topic from the dropdown above to begin!</p>
             </div>
@@ -1511,368 +550,175 @@ nav a:hover::after {
     </section>
 
     <script>
-        // Check if video is supported and handle fallback
-        document.addEventListener('DOMContentLoaded', function() {
-            const video = document.querySelector('.video-bg');
-            
-            // Check if browser supports video
-            const isVideoSupported = !!document.createElement('video').canPlayType;
-            
-            if (!isVideoSupported || video.canPlayType('video/mp4') === '') {
-                // Fallback to original gradient background if video isn't supported
-                document.querySelector('.hero').style.background = 'linear-gradient(45deg, #000000, #1a1a1a)';
-                video.style.display = 'none';
-            }
-            
-            // Try to play the video automatically
-            const playPromise = video.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    // Auto-play was prevented
-                    console.log("Video autoplay was prevented. This is common on mobile devices.");
-                    // Fallback to static background
-                    document.querySelector('.hero').style.background = 'linear-gradient(45deg, #000000, #1a1a1a)';
-                });
-            }
+        // Video bg fallback
+        document.addEventListener('DOMContentLoaded', function(){
+          const video = document.querySelector('.video-bg');
+          const ok = !!document.createElement('video').canPlayType;
+          if (!ok || video.canPlayType('video/mp4')===''){
+            document.querySelector('.hero').style.background = 'linear-gradient(45deg, #000000, #1a1a1a)';
+            video.style.display = 'none';
+          }
+          const p = video.play();
+          if (p && p.catch){ p.catch(()=>{ document.querySelector('.hero').style.background = 'linear-gradient(45deg, #000000, #1a1a1a)'; }); }
         });
 
-        // Intersection Observer for fade-in animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, {
-            threshold: 0.1
-        });
+        // Card fade observer
+        const observer = new IntersectionObserver((entries)=>{
+          entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.style.opacity=1; entry.target.style.transform='translateY(0)'; } });
+        },{threshold:.1});
+        document.querySelectorAll('.card').forEach(c=>observer.observe(c));
 
-        // Observe all cards
-        document.querySelectorAll('.card').forEach(card => {
-            observer.observe(card);
-        });
-
-        // Mobile navigation toggle
+        // Mobile nav
         const navToggle = document.querySelector('.nav-toggle');
         const nav = document.querySelector('nav');
-
-        navToggle.addEventListener('click', () => {
-            nav.classList.toggle('active');
-            navToggle.textContent = nav.classList.contains('active') ? '✕' : '☰';
-        });
-
-        // Close mobile nav when clicking a link
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', () => {
-                nav.classList.remove('active');
-                navToggle.textContent = '☰';
-            });
-        });
-    </script>
-
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get the subtitle element
-            const subtitleElement = document.getElementById('hero-subtitle');
-            const subtitleText = subtitleElement.textContent;
-            
-            // Clear the current content
-            subtitleElement.textContent = '';
-            
-            // Add each letter wrapped in a span with staggered animation delay
-            for (let i = 0; i < subtitleText.length; i++) {
-                const span = document.createElement('span');
-                span.textContent = subtitleText[i] === ' ' ? '\u00A0' : subtitleText[i];
-                span.style.animationDelay = `${1.0 + i * 0.08}s`; // Start after title animation with staggered delays
-                subtitleElement.appendChild(span);
-            }
-        });
+        navToggle.addEventListener('click', ()=>{ nav.classList.toggle('active'); navToggle.textContent = nav.classList.contains('active')?'✕':'☰'; });
+        document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click', ()=>{ nav.classList.remove('active'); navToggle.textContent='☰'; }));
     </script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const quizDropdown = document.getElementById('quiz-dropdown');
-            const loadQuizBtn = document.getElementById('load-quiz-btn');
-            const quizContainer = document.getElementById('quiz-container');
-            
-            // Google Form URLs - Replace these with your actual Google Form quiz URLs
-            const quizForms = {
-                quantum: "https://forms.gle/NUUL8GZ8bhfGZbeS8",
-                relativity: "https://docs.google.com/forms/d/e/1FAIpQLSflWPWiBi4fnWuxLZSKBuspJyd0CKFBuHxoX09_TvkUJeWvOA/viewform?usp=header",
-                mechanics: "https://docs.google.com/forms/d/e/1FAIpQLSdhhQFJpzA-5khQ0Va-OQ484Rqk6riCv_avn3u0_Vegui9BZw/viewform?usp=header",
-                thermodynamics: "https://docs.google.com/forms/d/e/1FAIpQLSeCjCk7E3Z3HLPIetWxZz7W51gRBiQ23LNEALfgY48t2eBo0w/viewform?usp=header",
-                waves: "https://docs.google.com/forms/d/e/1FAIpQLSfrB2cyv-QQnhZqyejeyfhoglqfdTD8MBDeJxmRlL2s5c96AA/viewform?usp=header",
-                electromagnetism: "https://docs.google.com/forms/d/e/1FAIpQLSd5l1ruro2VxABO-kmZA2SWBkCsruW2qw8ixiNvnGKWsLtKCQ/viewform?usp=header",
-                modern: "https://docs.google.com/forms/d/e/1FAIpQLSer92HsgnRJ_LZIFk_UGQeGTK_FkF_GgfenS-7l1CJtbOFOCA/viewform?usp=header",
-                astrophysics: "https://docs.google.com/forms/d/e/1FAIpQLSeH1eHg42dRYTIQ4S21v1sS9vJ93v9dkukBjU5SdG-mfYBeOg/viewform?usp=header"
-            };
-            
-            loadQuizBtn.addEventListener('click', function() {
-                const selectedQuiz = quizDropdown.value;
-                
-                if (!selectedQuiz) {
-                    alert('Please select a quiz topic first!');
-                    return;
-                }
-                
-                // Show loading state
-                quizContainer.innerHTML = '<div class="quiz-loading"></div>';
-                
-                // Check if we have a form URL for this topic
-                if (quizForms[selectedQuiz]) {
-                    // Create and load iframe with selected quiz
-                    const iframe = document.createElement('iframe');
-                    iframe.src = quizForms[selectedQuiz];
-                    iframe.onload = function() {
-                        // Remove loading state when iframe loads
-                        quizContainer.querySelector('.quiz-loading')?.remove();
-                    };
-                    
-                    // Clear container and add iframe
-                    quizContainer.innerHTML = '';
-                    quizContainer.appendChild(iframe);
-                    
-                    // Scroll to the quiz container
-                    quizContainer.scrollIntoView({behavior: 'smooth'});
-                } else {
-                    quizContainer.innerHTML = `
-                        <div class="quiz-placeholder">
-                            <p>Sorry, the selected quiz is not available at the moment. Please try another topic.</p>
-                        </div>
-                    `;
-                }
-            });
-        });
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Create the video modal element
-            const videoModal = document.createElement('div');
-            videoModal.className = 'video-modal';
-            videoModal.innerHTML = `
-                <div class="video-modal-content">
-                    <button class="close-modal">&times;</button>
-                    <video controls></video>
-                </div>
-            `;
-            document.body.appendChild(videoModal);
-
-            // Get all video containers
-            const videoContainers = document.querySelectorAll('.product-video-container');
-            const modalVideo = videoModal.querySelector('video');
-            const closeBtn = videoModal.querySelector('.close-modal');
-
-            // Add click event to video containers
-            videoContainers.forEach(container => {
-                container.addEventListener('click', function() {
-                    // Get the video source
-                    const sourceVideo = this.querySelector('video');
-                    const videoSrc = sourceVideo.querySelector('source').src;
-                    
-                    // Set the modal video source
-                    modalVideo.innerHTML = `<source src="${videoSrc}" type="video/mp4">`;
-                    modalVideo.load();
-                    
-                    // Show the modal
-                    videoModal.classList.add('active');
-                    
-                    // Play the video
-                    modalVideo.play();
-                });
-            });
-
-            // Close modal when clicking the close button
-            closeBtn.addEventListener('click', function() {
-                modalVideo.pause();
-                videoModal.classList.remove('active');
-            });
-
-            // Close modal when clicking outside the video
-            videoModal.addEventListener('click', function(e) {
-                if (e.target === videoModal) {
-                    modalVideo.pause();
-                    videoModal.classList.remove('active');
-                }
-            });
-
-            // Handle hover effects for video previews
-            videoContainers.forEach(container => {
-                const video = container.querySelector('video');
-                
-                container.addEventListener('mouseenter', function() {
-                    // Play the video on hover (muted)
-                    video.currentTime = 0;
-                    video.play().catch(err => {
-                        // Auto-play might be prevented by browser settings
-                        console.log('Preview autoplay prevented by browser');
-                    });
-                });
-
-                container.addEventListener('mouseleave', function() {
-                    // Pause the video when not hovering
-                    video.pause();
-                    video.currentTime = 0;
-                });
-            });
-        });
-    </script>
-
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(registration => {
-                        console.log('Service Worker registered:', registration);
-                    })
-                    .catch(error => {
-                        console.error('Service Worker registration failed:', error);
-                    });
-            });
-        }
-    </script>
-
-    <script>
-(function(){
-  const miniContainer = document.getElementById('miniContainer') || document.body;
-  let zTop = 5000;
-
-  function openMini(title, url, altUrl){
-    const win = document.createElement('div');
-    win.className = 'mw-miniwin glass border border-cyan-300/30';
-    win.style.left = (12 + Math.random()*40) + 'px';
-    win.style.top  = (12 + Math.random()*30) + 'px';
-    win.style.zIndex = ++zTop;
-
-    win.innerHTML = `
-      <div class="mw-titlebar">
-        <div class="mw-dots"><span class="mw-dot red"></span><span class="mw-dot yellow"></span><span class="mw-dot green"></span></div>
-        <strong class="text-sm">${title}</strong>
-        <span class="mw-badge hidden md:inline-block ml-2">${safeHost(url)}</span>
-        <div class="mw-toolbar">
-          <a class="mw-tool" href="${url}" target="_blank" rel="noopener">Open</a>
-          <button class="mw-tool" data-action="close">Close</button>
-        </div>
-      </div>
-      <div class="mw-loader"><div class="mw-spinner"></div></div>
-      <div class="mw-blocked glass">
-        <div>
-          <h4 class="font-semibold mb-1">Preview blocked by site</h4>
-          <p class="text-sm opacity-90">Some websites disable embedding. Use <em>Open</em> to view it in a new tab.</p>
-        </div>
-      </div>
-      <iframe class="mw-iframe" referrerpolicy="no-referrer"
-        sandbox="allow-scripts allow-forms allow-same-origin allow-pointer-lock allow-downloads"></iframe>
-      <div class="mw-resize" title="Resize"></div>
-    `;
-
-    const titlebar = win.querySelector('.mw-titlebar');
-    const iframe   = win.querySelector('iframe');
-    const loader   = win.querySelector('.mw-loader');
-    const blocked  = win.querySelector('.mw-blocked');
-
-    // Load main URL with a 5s guard; if still not loaded and altUrl exists, try alt once
-    let loaded = false, triedAlt = false;
-    function tryLoad(u){
-      iframe.src = u;
-      const guard = setTimeout(()=>{
-        if(!loaded){
-          if(altUrl && !triedAlt){
-            triedAlt = true;
-            tryLoad(altUrl);
-          } else {
-            loader.style.display='none';
-            blocked.style.display='flex';
+        // Subtitle letter animation
+        document.addEventListener('DOMContentLoaded', function(){
+          const el = document.getElementById('hero-subtitle');
+          const txt = el.textContent;
+          el.textContent = '';
+          for (let i=0;i<txt.length;i++){
+            const s = document.createElement('span');
+            s.textContent = txt[i]===' ' ? '\u00A0' : txt[i];
+            s.style.animationDelay = `${1.0 + i*0.08}s`;
+            el.appendChild(s);
           }
+        });
+    </script>
+
+    <script>
+        // Quiz loader
+        document.addEventListener('DOMContentLoaded', function(){
+          const dropdown = document.getElementById('quiz-dropdown');
+          const btn = document.getElementById('load-quiz-btn');
+          const box = document.getElementById('quiz-container');
+          const forms = {
+            quantum:"https://forms.gle/NUUL8GZ8bhfGZbeS8",
+            relativity:"https://docs.google.com/forms/d/e/1FAIpQLSflWPWiBi4fnWuxLZSKBuspJyd0CKFBuHxoX09_TvkUJeWvOA/viewform?usp=header",
+            mechanics:"https://docs.google.com/forms/d/e/1FAIpQLSdhhQFJpzA-5khQ0Va-OQ484Rqk6riCv_avn3u0_Vegui9BZw/viewform?usp=header",
+            thermodynamics:"https://docs.google.com/forms/d/e/1FAIpQLSeCjCk7E3Z3HLPIetWxZz7W51gRBiQ23LNEALfgY48t2eBo0w/viewform?usp=header",
+            waves:"https://docs.google.com/forms/d/e/1FAIpQLSfrB2cyv-QQnhZqyejeyfhoglqfdTD8MBDeJxmRlL2s5c96AA/viewform?usp=header",
+            electromagnetism:"https://docs.google.com/forms/d/e/1FAIpQLSd5l1ruro2VxABO-kmZA2SWBkCsruW2qw8ixiNvnGKWsLtKCQ/viewform?usp=header",
+            modern:"https://docs.google.com/forms/d/e/1FAIpQLSer92HsgnRJ_LZIFk_UGQeGTK_FkF_GgfenS-7l1CJtbOFOCA/viewform?usp=header",
+            astrophysics:"https://docs.google.com/forms/d/e/1FAIpQLSeH1eHg42dRYTIQ4S21v1sS9vJ93v9dkukBjU5SdG-mfYBeOg/viewform?usp=header"
+          };
+          btn.addEventListener('click', ()=>{
+            const key = dropdown.value;
+            if(!key){ alert('Please select a quiz topic first!'); return; }
+            box.innerHTML = '<div class="quiz-loading"></div>';
+            const iframe = document.createElement('iframe');
+            iframe.src = forms[key];
+            iframe.onload = ()=>{ box.querySelector('.quiz-loading')?.remove(); };
+            box.innerHTML='';
+            box.appendChild(iframe);
+            box.scrollIntoView({behavior:'smooth'});
+          });
+        });
+    </script>
+
+    <script>
+        // Product video modal + hover preview
+        document.addEventListener('DOMContentLoaded', function(){
+          const modal = document.createElement('div');
+          modal.className='video-modal';
+          modal.innerHTML = `
+            <div class="video-modal-content">
+              <button class="close-modal">&times;</button>
+              <video controls></video>
+            </div>`;
+          document.body.appendChild(modal);
+          const containers = document.querySelectorAll('.product-video-container');
+          const modalVideo = modal.querySelector('video');
+          const closeBtn = modal.querySelector('.close-modal');
+          containers.forEach(c=>{
+            c.addEventListener('click', function(){
+              const src = this.querySelector('video source').src;
+              modalVideo.innerHTML = \`<source src="\${src}" type="video/mp4">\`;
+              modalVideo.load(); modal.classList.add('active'); modalVideo.play();
+            });
+            const v = c.querySelector('video');
+            c.addEventListener('mouseenter', ()=>{ v.currentTime=0; v.play().catch(()=>{}); });
+            c.addEventListener('mouseleave', ()=>{ v.pause(); v.currentTime=0; });
+          });
+          closeBtn.addEventListener('click', ()=>{ modalVideo.pause(); modal.classList.remove('active'); });
+          modal.addEventListener('click', e=>{ if(e.target===modal){ modalVideo.pause(); modal.classList.remove('active'); } });
+        });
+    </script>
+
+    <!-- New: auto-load live previews + fallback + expand -->
+    <script>
+      (function(){
+        function setSrcWithGuard(frame, url, alt, fallbackEl){
+          let loaded = false;
+          const guard = setTimeout(()=>{
+            if(!loaded){
+              if(alt && !frame.dataset.triedAlt){
+                frame.dataset.triedAlt = '1';
+                frame.src = alt;
+              } else {
+                // Show fallback text if still not loaded after second try
+                fallbackEl.hidden = false;
+              }
+            }
+          }, 5000);
+          frame.onload = ()=>{ loaded = true; clearTimeout(guard); fallbackEl.hidden = false; /* hide then show for a11y */ fallbackEl.hidden = true; };
+          frame.src = url;
         }
-      }, 5000);
-      iframe.onload = () => { loaded = true; clearTimeout(guard); loader.style.display='none'; };
-    }
-    tryLoad(url);
 
-    // Bring to front on focus
-    win.addEventListener('mousedown', ()=> win.style.zIndex = ++zTop);
+        document.addEventListener('DOMContentLoaded', function(){
+          document.querySelectorAll('.preview-card').forEach(card=>{
+            const url = card.getAttribute('data-url');
+            const alt = card.getAttribute('data-alt');
+            const frame = card.querySelector('.preview-frame');
+            const fb = card.querySelector('.preview-fallback');
+            if(url){
+              setSrcWithGuard(frame, url, alt, fb);
+            }
 
-    // Drag
-    let dragging=false, sx=0, sy=0, ox=0, oy=0;
-    titlebar.addEventListener('mousedown', e=>{
-      if(e.target.closest('.mw-toolbar')) return;
-      dragging=true; sx=e.clientX; sy=e.clientY;
-      const r=win.getBoundingClientRect(); ox=r.left; oy=r.top;
-      document.body.style.userSelect='none';
-    });
-    window.addEventListener('mousemove', e=>{
-      if(!dragging) return;
-      const nx = Math.min(window.innerWidth-80, Math.max(0, ox + (e.clientX - sx)));
-      const ny = Math.min(window.innerHeight-60, Math.max(0, oy + (e.clientY - sy)));
-      win.style.left = nx+'px'; win.style.top = ny+'px';
-    });
-    window.addEventListener('mouseup', ()=>{ dragging=false; document.body.style.userSelect=''; });
+            const exp = card.querySelector('.preview-expand');
+            if(exp){
+              exp.addEventListener('click', ()=>{
+                card.classList.toggle('expanded');
+                exp.textContent = card.classList.contains('expanded') ? 'Collapse' : 'Expand';
+              });
+            }
+          });
+        });
+      })();
+    </script>
 
-    // Resize
-    const handle = win.querySelector('.mw-resize');
-    let resizing=false, rsx=0, rsy=0, rw=0, rh=0;
-    handle.addEventListener('mousedown', e=>{
-      e.stopPropagation(); resizing=true; rsx=e.clientX; rsy=e.clientY;
-      const r=win.getBoundingClientRect(); rw=r.width; rh=r.height;
-      document.body.style.userSelect='none';
-    });
-    window.addEventListener('mousemove', e=>{
-      if(!resizing) return;
-      const w=Math.min(window.innerWidth-20, Math.max(320, rw + (e.clientX - rsx)));
-      const h=Math.min(window.innerHeight-20, Math.max(210, rh + (e.clientY - rsy)));
-      win.style.width = w+'px'; win.style.height = h+'px';
-    });
-    window.addEventListener('mouseup', ()=>{ resizing=false; document.body.style.userSelect=''; });
-
-    // Toolbar
-    win.addEventListener('click', (e)=>{
-      const btn = e.target.closest('[data-action]');
-      if(!btn) return;
-      if(btn.getAttribute('data-action')==='close'){ win.remove(); }
-    });
-
-    miniContainer.appendChild(win);
-  }
-
-  function safeHost(u){ try{ return new URL(u).hostname; } catch { return u; } }
-
-  // Hook up all [data-mini] buttons (works for the section above or any future cards)
-  document.addEventListener('click', (e)=>{
-    const btn = e.target.closest('[data-mini]');
-    if(!btn) return;
-    const title = btn.getAttribute('data-title') || 'Preview';
-    const url   = btn.getAttribute('data-url');
-    const alt   = btn.getAttribute('data-alt');
-    if(url) openMini(title, url, alt);
-  });
-})();
-</script>
-
+    <script>
+        // Service worker (optional)
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js').catch(()=>{});
+          });
+        }
+    </script>
 
     <footer style="background: radial-gradient(circle at top left, #0a0a0a, #111); color: #fff; padding: 4rem 2rem 2rem; font-family: 'Space Grotesk', sans-serif;">
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; max-width: 1200px; margin: 0 auto; gap: 2rem;">
-            <div style="flex: 1; min-width: 250px;">
-      <img src="xploreon.jpeg" alt="Xploreon Logo" style="width: 180px; margin-bottom: 1rem;">
-      <p style="line-height: 1.6; color: #ccc;">Exploring the fabric of the universe through quantum mechanics, astrophysics, and futuristic tech. Xploreon is your gateway to deep space discovery.</p>
-    </div>
-            <div style="flex: 1; min-width: 180px;">
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; max-width:1200px; margin:0 auto; gap:2rem;">
+            <div style="flex:1; min-width:250px;">
+              <img src="xploreon.jpeg" alt="Xploreon Logo" style="width: 180px; margin-bottom: 1rem;">
+              <p style="line-height:1.6; color:#ccc;">Exploring the fabric of the universe through quantum mechanics, astrophysics, and futuristic tech. Xploreon is your gateway to deep space discovery.</p>
+            </div>
+            <div style="flex:1; min-width:180px;">
                 <h3 style="margin-bottom: 1rem;">Quick Links</h3>
-                <ul style="list-style: none; padding: 0;">
-                    <li><a href="#about" style="color: #fff; text-decoration: none;">About</a></li>
-                    <li><a href="#projects" style="color: #fff; text-decoration: none;">Projects</a></li>
-                    <li><a href="#blog" style="color: #fff; text-decoration: none;">Blog</a></li>
-                    <li><a href="#quizzes" style="color: #fff; text-decoration: none;">Quizzes</a></li>
-                    <li><a href="#contact" style="color: #fff; text-decoration: none;">Contact</a></li>
+                <ul style="list-style:none; padding:0;">
+                    <li><a href="#about" style="color:#fff; text-decoration:none;">About</a></li>
+                    <li><a href="#projects" style="color:#fff; text-decoration:none;">Projects</a></li>
+                    <li><a href="#blog" style="color:#fff; text-decoration:none;">Blog</a></li>
+                    <li><a href="#quizzes" style="color:#fff; text-decoration:none;">Quizzes</a></li>
+                    <li><a href="#contact" style="color:#fff; text-decoration:none;">Contact</a></li>
                 </ul>
             </div>
-
-            <div style="flex: 1; min-width: 200px;">
+            <div style="flex:1; min-width:200px;">
                 <h3 style="margin-bottom: 1rem;">Focus Areas</h3>
-                <ul style="list-style: none; padding: 0; color: #ccc;">
+                <ul style="list-style:none; padding:0; color:#ccc;">
                     <li>Quantum Mechanics</li>
                     <li>Astrophysics</li>
                     <li>Time Machine Research</li>
@@ -1880,24 +726,17 @@ nav a:hover::after {
                     <li>Wormholes & Relativity</li>
                 </ul>
             </div>
-
-            <div style="flex: 1; min-width: 250px;">
+            <div style="flex:1; min-width:250px;">
                 <h3 style="margin-bottom: 1rem;">Contact</h3>
                 <p>📍 Roorkee, India</p>
-                <p>📧 <a href="mailto:physicsbyavikam@gmail.com" style="color: #00ffff;">physicsbyavikam@gmail.com</a></p>
+                <p>📧 <a href="mailto:physicsbyavikam@gmail.com" style="color:#00ffff;">physicsbyavikam@gmail.com</a></p>
                 <p>🏢 Founder & CEO at Xploreon</p>
             </div>
-
         </div>
 
         <hr style="margin: 2rem 0; border-color: rgba(255,255,255,0.1);">
-        <p style="text-align: center; color: #888;">© 2025 Avikam Deol - Xploreon. All Rights Reserved.</p>
+        <p style="text-align:center; color:#888;">© 2025 Avikam Deol - Xploreon. All Rights Reserved.</p>
     </footer>
 
- 
-
-    
-
 </body>
-
 </html>
