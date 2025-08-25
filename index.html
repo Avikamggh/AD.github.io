@@ -1104,26 +1104,83 @@ nav a:hover::after {
   left: 100%;
 }
 
-/* ===== NEW: tiny, scoped styles ONLY for Projects previews (pv-) ===== */
-.pv-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:16px; }
-.pv-card{ background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; overflow:hidden; transition: .25s; }
-.pv-card:hover{ transform: translateY(-6px); border-color:#ff3366; }
-.pv-head{ display:flex; align-items:center; justify-content:space-between; gap:8px; padding:10px 12px; background: rgba(0,0,0,.35); border-bottom:1px solid rgba(255,255,255,.08); }
-.pv-title{ font-weight:700; font-size:14px; letter-spacing:.2px; display:flex; align-items:center; gap:8px; }
-.pv-host{ color:#9ff9f1; font-size:11px; opacity:.9; }
-.pv-actions{ display:flex; gap:8px; }
-.pv-btn{ font-size:11px; padding:6px 10px; border-radius:999px; border:1px solid rgba(0,255,224,.35); background: rgba(0,255,224,.08); color:#dffffa; cursor:pointer; }
-.pv-btn:hover{ background: rgba(0,255,224,.18); }
-.pv-frame-wrap{ position:relative; width:100%; height:160px; overflow:hidden; background:#000; }
-.pv-frame{ position:absolute; inset:0; width:100%; height:100%; border:0; }
-.pv-fallback{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:16px; color:#c9fffb; font-size:12px; background: rgba(0,10,12,.6); border-top:1px dashed rgba(0,255,224,.25); }
-.pv-footer{ padding:10px 12px; font-size:12px; color:#bfe9ff; display:flex; align-items:center; justify-content:space-between; }
-.pv-card.expanded .pv-frame-wrap{ height:280px; }
-
-@media (max-width:420px){
-  .pv-frame-wrap{ height:140px; }
-  .pv-card.expanded .pv-frame-wrap{ height:220px; }
+/* ===== Projects previews (pv) ===== */
+.pv-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* was 260px */
+  gap:16px;
+  align-items:stretch;
 }
+
+.pv-card{
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 15px;
+  overflow: hidden;
+  transition: .25s;
+  /* NEW: make the card a flex column with a stable height */
+  display: flex;
+  flex-direction: column;
+  min-height: 440px; /* tune 420–500 as you like */
+}
+
+/* header */
+.pv-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:10px 12px;
+  background: rgba(0,0,0,.35);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  flex-wrap: wrap;               /* NEW: allows long titles + buttons to wrap */
+}
+
+.pv-title{ font-weight:700; font-size:14px; letter-spacing:.2px; display:flex; align-items:center; gap:8px; }
+.pv-host{ color:#9ff9ff; font-size:11px; opacity:.9; }
+
+.pv-actions{ display:flex; gap:8px; flex:0 0 auto; }
+.pv-btn{ font-size:11px; padding:6px 10px; border-radius:999px; border:1px solid rgba(0,255,224,.35); background: rgba(0,255,224,.08); color:#dff; cursor:pointer; }
+.pv-btn:hover{ background: rgba(0,255,224,.18); }
+
+/* preview area */
+.pv-frame-wrap{
+  position:relative;
+  width:100%;
+  /* REPLACE fixed height with aspect ratio so it scales */
+  aspect-ratio: 16 / 9;          /* NEW */
+  min-height: 220px;             /* NEW: prevents too-short previews */
+  overflow:hidden;
+  background:#000;
+}
+.pv-frame{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+/* fallback (unchanged) */
+.pv-fallback{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  text-align:center; padding:16px; color:#c9fffb; font-size:12px; background: rgba(0,255,224,.06);
+}
+
+/* footer pinned to bottom */
+.pv-footer{
+  padding:10px 12px;
+  font-size:12px;
+  color:#bfe9ff;
+  display:flex; align-items:center; justify-content:space-between;
+  margin-top:auto;               /* NEW: pushes footer to the bottom */
+}
+
+/* expanded preview gets more height via aspect ratio override */
+.pv-card.expanded .pv-frame-wrap{
+  aspect-ratio: 4 / 3;           /* taller when expanded */
+}
+
+/* mobile tweaks */
+@media (max-width: 420px){
+  .pv-grid{ grid-template-columns: 1fr; }
+  .pv-frame-wrap{ min-height: 180px; }
+}
+
 </style>
 
 </head>
@@ -1301,7 +1358,7 @@ nav a:hover::after {
             <span style="opacity:.7;">Mini preview</span>
           </div>
         </article>
-<br>
+
     <!-- Pokemon Battle Online-->
            <article class="pv-card" data-url="https://pokemonbattlex.netlify.app/">
           <div class="pv-head">
