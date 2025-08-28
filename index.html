@@ -1297,6 +1297,68 @@ nav a:hover::after {
                 </div>
             </div>
         </div>
+       <div class="grid">
+    <!-- Web Development (overall) -->
+    <div class="card">
+      <h3>Web Development</h3>
+      <div class="skill-bar" aria-label="Web Development proficiency">
+        <div class="skill-progress" style="width:0%" data-progress="85"></div>
+      </div>
+    </div>
+
+    <!-- Frontend -->
+    <div class="card">
+      <h3>Frontend (HTML • CSS • JS • React/Next)</h3>
+      <div class="skill-bar" aria-label="Frontend proficiency">
+        <div class="skill-progress" style="width:0%" data-progress="80"></div>
+      </div>
+    </div>
+
+    <!-- Backend -->
+    <div class="card">
+      <h3>Backend (Node • Express • APIs)</h3>
+      <div class="skill-bar" aria-label="Backend proficiency">
+        <div class="skill-progress" style="width:0%" data-progress="70"></div>
+      </div>
+    </div>
+
+    <!-- UI/UX -->
+    <div class="card">
+      <h3>UI/UX Design (Futuristic • Glassmorphism)</h3>
+      <div class="skill-bar" aria-label="UI/UX proficiency">
+        <div class="skill-progress" style="width:0%" data-progress="75"></div>
+      </div>
+    </div>
+
+    <!-- Data Structures & Algorithms -->
+    <div class="card">
+      <h3>Data Structures & Algorithms</h3>
+      <div class="skill-bar" aria-label="DSA proficiency">
+        <div class="skill-progress" style="width:0%" data-progress="65"></div>
+      </div>
+    </div>
+
+    <!-- DevOps / Cloud -->
+    <div class="card">
+      <h3>DevOps / Cloud (Netlify • Vercel • SW)</h3>
+      <div class="skill-bar" aria-label="DevOps proficiency">
+        <div class="skill-progress" style="width:0%" data-progress="55"></div>
+      </div>
+    </div>
+
+    <!-- Cybersecurity -->
+    <div class="card">
+      <h3>Cybersecurity Basics</h3>
+      <div class="skill-bar" aria-label="Cybersecurity proficiency">
+        <div class="skill-progress" style="width:0%" data-progress="60"></div>
+      </div>
+    </div>
+
+    <!-- Keep your original physics skills -->
+    
+    
+    
+        
     </section>
 
     <!-- ===== PROJECTS (unchanged page style; live previews by default) ===== -->
@@ -2002,6 +2064,29 @@ nav a:hover::after {
 
 })(); // end IIFE
 </script>
+
+<script>
+  // Animate skill bars on scroll-in
+  document.addEventListener('DOMContentLoaded', () => {
+    const bars = document.querySelectorAll('.skill-progress[data-progress]');
+    const barObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const pct = Math.max(0, Math.min(100, parseInt(el.getAttribute('data-progress'), 10) || 0));
+          // trigger CSS transition you already defined
+          requestAnimationFrame(() => el.style.width = pct + '%');
+          barObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.35 });
+
+    bars.forEach(b => barObserver.observe(b));
+  });
+</script>
+
+
+    
 <!-- ===== FOOTER ===== -->
 
 <footer style="background: radial-gradient(circle at top left, #0a0a0a, #111); color: #fff; padding: 4rem 2rem 2rem; font-family: 'Space Grotesk', sans-serif;">
