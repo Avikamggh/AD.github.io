@@ -1199,15 +1199,16 @@ nav a:hover::after {
     <button class="nav-toggle">☰</button>
     <nav>
         <a href="#about">About</a>
+        <a href="#research">Research</a>
         <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
         <a href="#blog">Blogs</a>
         <a href="#goals">Goals</a>
         <a href="#achievements">Achievements</a>
         <a href="#products">Products</a>
-        <a href="#social">Connect With Me</a>
-        <a href="#quizzes">Physics Quizzes</a>
-        <a href="#research">Research</a>
+        <a href="#social">Contact</a>
+        <a href="#quizzes">Quizzes</a>
+        
     </nav>
 
     <div class="hero">
@@ -1280,6 +1281,76 @@ nav a:hover::after {
             </div>
         </div>
     </section>
+
+     <section id="research" class="section">
+  <h2 class="section-title">Research</h2>
+
+  <div class="grid">
+    <!-- Paper Card -->
+    <article class="card" style="display:flex; flex-direction:column; gap:1rem;">
+      <header>
+        <h3 style="font-size:1.6rem; margin-bottom:.25rem;">
+          A Novel Perspective on Time and Spacetime Dynamics
+        </h3>
+        <p style="color:#bbb;">Avikam Deol</p>
+        <div style="display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.75rem;">
+          <span style="font-size:.8rem; padding:.25rem .6rem; border-radius:999px; border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.05);">
+            Preprint
+          </span>
+          <span style="font-size:.8rem; padding:.25rem .6rem; border-radius:999px; border:1px solid rgba(0,255,255,.35); background:rgba(0,255,255,.08); color:#bff;">
+            DOI: 10.5281/zenodo.16983790
+          </span>
+          <span style="font-size:.8rem; padding:.25rem .6rem; border-radius:999px; border:1px solid rgba(255,51,102,.35); background:rgba(255,51,102,.08);">
+            2025
+          </span>
+        </div>
+      </header>
+
+      <!-- Abstract accordion -->
+      <details style="margin-top:.5rem; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:1rem;">
+        <summary style="cursor:pointer; font-weight:700;">Abstract</summary>
+        <p style="color:#ddd; margin-top:.75rem;">
+          This work explores intuitive and mathematical angles on time flow and spacetime structure,
+          proposing thought experiments and simple derivations that connect classroom physics to
+          current ideas. It aims to be readable for students while hinting at deeper directions.
+        </p>
+      </details>
+
+      <!-- Buttons -->
+      <div style="display:flex; flex-wrap:wrap; gap:.75rem; margin-top:.5rem;">
+        <!-- Open modal PDF (works if you upload /paper.pdf) -->
+       
+
+        <!-- If embedding is blocked or no local PDF, send to DOI -->
+        <a class="mw-btn" href="https://doi.org/10.5281/zenodo.16983790" target="_blank" rel="noopener">
+          View on DOI
+        </a>
+
+        <!-- Copyable citation -->
+        <button class="mw-btn" id="copy-cite"
+          data-citation='Deol, A. (2025). A Novel Perspective on Time and Spacetime Dynamics. Zenodo. https://doi.org/10.5281/zenodo.16983790'>
+          Copy Citation
+        </button>
+
+      
+      </div>
+
+      <!-- Hidden BibTeX -->
+      <pre id="bibtex" style="display:none; margin-top:.5rem; padding:1rem; background:rgba(0,0,0,.45); border:1px solid rgba(255,255,255,.12); border-radius:10px; overflow:auto; color:#cde;">
+@misc{Deol_2025_TimeSpacetime,
+  author = {Deol, Avikam},
+  title  = {A Novel Perspective on Time and Spacetime Dynamics},
+  year   = {2025},
+  doi    = {10.5281/zenodo.16983790},
+  url    = {https://doi.org/10.5281/zenodo.16983790},
+  note   = {Preprint on Zenodo}
+}
+      </pre>
+
+      
+    </article>
+  </div>
+</section>
 
    <section id="skills" class="section">
   <h2 class="section-title">Skills</h2>
@@ -1687,80 +1758,7 @@ nav a:hover::after {
         </div>
     </section>
 
-    <section id="research" class="section">
-  <h2 class="section-title">Research</h2>
-
-  <div class="grid">
-    <!-- Paper Card -->
-    <article class="card" style="display:flex; flex-direction:column; gap:1rem;">
-      <header>
-        <h3 style="font-size:1.6rem; margin-bottom:.25rem;">
-          A Novel Perspective on Time and Spacetime Dynamics
-        </h3>
-        <p style="color:#bbb;">Avikam Deol</p>
-        <div style="display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.75rem;">
-          <span style="font-size:.8rem; padding:.25rem .6rem; border-radius:999px; border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.05);">
-            Preprint
-          </span>
-          <span style="font-size:.8rem; padding:.25rem .6rem; border-radius:999px; border:1px solid rgba(0,255,255,.35); background:rgba(0,255,255,.08); color:#bff;">
-            DOI: 10.5281/zenodo.16983790
-          </span>
-          <span style="font-size:.8rem; padding:.25rem .6rem; border-radius:999px; border:1px solid rgba(255,51,102,.35); background:rgba(255,51,102,.08);">
-            2025
-          </span>
-        </div>
-      </header>
-
-      <!-- Abstract accordion -->
-      <details style="margin-top:.5rem; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:1rem;">
-        <summary style="cursor:pointer; font-weight:700;">Abstract</summary>
-        <p style="color:#ddd; margin-top:.75rem;">
-          This work explores intuitive and mathematical angles on time flow and spacetime structure,
-          proposing thought experiments and simple derivations that connect classroom physics to
-          current ideas. It aims to be readable for students while hinting at deeper directions.
-        </p>
-      </details>
-
-      <!-- Buttons -->
-      <div style="display:flex; flex-wrap:wrap; gap:.75rem; margin-top:.5rem;">
-        <!-- Open modal PDF (works if you upload /paper.pdf) -->
-        <button class="mw-btn" data-open-pdf="/paper.pdf">Read PDF</button>
-
-        <!-- If embedding is blocked or no local PDF, send to DOI -->
-        <a class="mw-btn" href="https://doi.org/10.5281/zenodo.16983790" target="_blank" rel="noopener">
-          View on DOI
-        </a>
-
-        <!-- Copyable citation -->
-        <button class="mw-btn" id="copy-cite"
-          data-citation='Deol, A. (2025). A Novel Perspective on Time and Spacetime Dynamics. Zenodo. https://doi.org/10.5281/zenodo.16983790'>
-          Copy Citation
-        </button>
-
-        <!-- Toggle BibTeX -->
-        <button class="mw-btn" id="toggle-bibtex">Show BibTeX</button>
-      </div>
-
-      <!-- Hidden BibTeX -->
-      <pre id="bibtex" style="display:none; margin-top:.5rem; padding:1rem; background:rgba(0,0,0,.45); border:1px solid rgba(255,255,255,.12); border-radius:10px; overflow:auto; color:#cde;">
-@misc{Deol_2025_TimeSpacetime,
-  author = {Deol, Avikam},
-  title  = {A Novel Perspective on Time and Spacetime Dynamics},
-  year   = {2025},
-  doi    = {10.5281/zenodo.16983790},
-  url    = {https://doi.org/10.5281/zenodo.16983790},
-  note   = {Preprint on Zenodo}
-}
-      </pre>
-
-      <!-- Tiny metrics row (static placeholders—replace if you add real counts) -->
-      <div style="display:flex; gap:1rem; color:#bbb; font-size:.95rem; margin-top:.25rem;">
-        <span>Views: ~100+</span>
-        <span>Downloads: ~50+</span>
-      </div>
-    </article>
-  </div>
-</section>
+   
 
 <!-- PDF Modal (re-uses your glass vibe like the video modal) -->
 <div id="pdf-modal" class="video-modal">
