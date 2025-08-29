@@ -2338,12 +2338,12 @@ document.addEventListener('DOMContentLoaded', () => {
     <p style="color:#ddd;margin-top:.75rem;">${p.abstract}</p>
   </details>` : ""}
 
-  <div class="res__actions">
-    ${doiUrl ? `<button class="res__btn" data-open-doi="${doiUrl}">Read inline</button>
-                <a class="res__btn" href="${doiUrl}" target="_blank" rel="noopener">Open on DOI</a>` : ""}
+<div class="res__actions">
+    ${doiUrl ? `<a class="res__btn" href="${doiUrl}" target="_blank" rel="noopener">Open on DOI</a>` : ""}
     ${p.pdf ? `<a class="res__btn" href="${p.pdf}" target="_blank" rel="noopener">Open PDF</a>` : ""}
     <button class="res__btn" data-toggle="#res-cite-${idx}">Cite</button>
-  </div>
+</div>
+
 
   <div id="res-cite-${idx}" class="res__cite" hidden>
     <div class="res__tabs">
